@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>重庆千里行特种合金有限公司</title>
     <style>
         :root {
@@ -17,26 +18,36 @@
             --text-light: #6b6b6b;
             --border: #e0e0e0;
             --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
             --radius: 8px;
-            --transition: 0.25s ease;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
             font-size: 15px;
             color: var(--text-dark);
             line-height: 1.7;
             background: #f8f9fb;
+            -webkit-font-smoothing: antialiased;
         }
+
         a {
             text-decoration: none;
             color: inherit;
             cursor: pointer;
         }
+
         ul {
             list-style: none;
         }
@@ -48,6 +59,7 @@
             font-size: 13px;
             padding: 8px 0;
         }
+
         .topbar .container {
             display: flex;
             justify-content: space-between;
@@ -55,11 +67,13 @@
             flex-wrap: wrap;
             gap: 8px;
         }
+
         .topbar a {
             color: #ccc;
             margin-left: 14px;
             transition: var(--transition);
         }
+
         .topbar a:hover {
             color: #fff;
         }
@@ -79,6 +93,7 @@
             letter-spacing: 0.5px;
             font-family: inherit;
         }
+
         .lang-switch:hover {
             background: #fff;
             color: #111;
@@ -94,32 +109,53 @@
         /* 主导航 */
         .header {
             background: #fff;
-            box-shadow: var(--shadow);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
             position: sticky;
             top: 0;
             z-index: 100;
+            transition: box-shadow 0.4s ease;
         }
+
+        .header.scrolled {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.14);
+        }
+
         .header .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
             height: 72px;
         }
+
         .logo {
             display: flex;
             align-items: center;
             gap: 12px;
             flex-shrink: 0;
         }
-        .logo img {
-            height: 44px;
+
+        .logo .logo-icon {
+            background-image: url('');
+            width: 336px;
+            height: 57px;
+            border-radius: 8px;
+           /*  background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 22px;
+            font-weight: 700;
+            flex-shrink: 0; */
         }
+
         .logo .name {
             font-size: 19px;
             font-weight: 700;
             color: var(--primary);
             line-height: 1.3;
         }
+
         .logo .name sub {
             font-size: 10px;
             color: var(--text-light);
@@ -127,10 +163,12 @@
             margin-left: 4px;
             display: block;
         }
+
         .nav {
             display: flex;
             gap: 0;
         }
+
         .nav a {
             display: block;
             padding: 24px 16px;
@@ -141,100 +179,194 @@
             transition: var(--transition);
             cursor: pointer;
             white-space: nowrap;
+            position: relative;
         }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--accent);
+            transition: var(--transition);
+            transform: translateX(-50%);
+            border-radius: 2px 2px 0 0;
+        }
+
+        .nav a:hover::after,
+        .nav a.active::after {
+            width: 60%;
+        }
+
         .nav a:hover,
         .nav a.active {
             color: var(--accent);
-            border-bottom-color: var(--accent);
         }
 
-        /* Hero */
+        /* Hero - 全屏大图 */
         .hero {
-            background: linear-gradient(135deg, #0d2137 0%, #1a3a5c 50%, #1e4d7a 100%);
+            /* ========== 首页大图背景：请将下方url替换为您的实际图片链接 ========== */
+            background-image: url('images/大型钢管.jpeg');
+            /* 替换为实际图片：background-image: url('images/hero-banner.jpg'); */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             color: #fff;
-            padding: 80px 0 100px;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
             text-align: center;
             position: relative;
             overflow: hidden;
         }
+
         .hero::before {
             content: "";
             position: absolute;
             inset: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.03)" d="M0 160L48 144C96 128 192 96 288 117C384 139 480 213 576 224C672 235 768 181 864 155C960 128 1056 128 1152 149C1248 171 1344 213 1392 235L1440 256V320H0Z"/></svg>') no-repeat bottom;
-            background-size: cover;
+            background: rgba(0, 0, 0, 0.45);
             pointer-events: none;
+            z-index: 0;
         }
-        .hero h1 {
-            font-size: 46px;
-            font-weight: 700;
-            margin-bottom: 16px;
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.3), transparent);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero .container {
             position: relative;
             z-index: 1;
         }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+            animation: heroFadeIn 0.8s ease forwards;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
         .hero p {
             font-size: 17px;
             max-width: 700px;
             margin: 0 auto 32px;
-            opacity: 0.88;
-            position: relative;
-            z-index: 1;
+            opacity: 0.9;
+            animation: heroFadeIn 0.8s 0.2s ease forwards;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
         }
+
         .hero .btns {
-            position: relative;
-            z-index: 1;
             display: flex;
             gap: 14px;
             justify-content: center;
             flex-wrap: wrap;
+            animation: heroFadeIn 0.8s 0.4s ease forwards;
         }
+
+        @keyframes heroFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .btn {
             display: inline-block;
-            padding: 12px 30px;
+            padding: 13px 32px;
             border-radius: 30px;
             font-weight: 600;
             font-size: 15px;
             transition: var(--transition);
             cursor: pointer;
             border: none;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
         }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0);
+            transition: background 0.3s ease;
+            border-radius: 30px;
+        }
+
+        .btn:hover::after {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+        }
+
         .btn-primary {
             background: var(--accent);
             color: #fff;
+            box-shadow: 0 4px 16px rgba(196, 30, 42, 0.35);
         }
+
         .btn-primary:hover {
             background: var(--accent-hover);
+            box-shadow: 0 6px 22px rgba(196, 30, 42, 0.5);
+            transform: translateY(-2px);
         }
+
         .btn-outline {
             background: transparent;
-            border: 2px solid rgba(255, 255, 255, 0.7);
+            border: 2px solid rgba(255, 255, 255, 0.75);
             color: #fff;
         }
+
         .btn-outline:hover {
             background: rgba(255, 255, 255, 0.1);
             border-color: #fff;
+            transform: translateY(-2px);
         }
 
         /* 通用区块 */
         .section {
             padding: 70px 0;
         }
+
         .section.bg-light {
             background: var(--bg-light);
         }
+
         .section.bg-white {
             background: #fff;
         }
+
         .section-title {
             text-align: center;
             margin-bottom: 48px;
         }
+
         .section-title h2 {
             font-size: 32px;
             font-weight: 700;
             color: var(--primary);
             margin-bottom: 8px;
+            letter-spacing: 1px;
         }
+
         .section-title .line {
             width: 60px;
             height: 4px;
@@ -242,6 +374,7 @@
             margin: 0 auto 14px;
             border-radius: 2px;
         }
+
         .section-title p {
             color: var(--text-light);
             max-width: 600px;
@@ -255,15 +388,18 @@
             gap: 48px;
             align-items: center;
         }
+
         .about-grid .text h3 {
             font-size: 22px;
             margin-bottom: 12px;
             color: var(--primary);
         }
+
         .about-grid .text p {
             margin-bottom: 10px;
             color: var(--text-mid);
         }
+
         .about-grid .img-placeholder {
             background: #dce6f0;
             height: 320px;
@@ -275,6 +411,10 @@
             color: var(--text-light);
             flex-direction: column;
             gap: 8px;
+            /* ========== 工厂照片：请将下方url替换为实际图片链接 ========== */
+            background-image: url('images/工厂内部俯视图.jpeg');
+            background-size: cover;
+            background-position: center;
         }
 
         /* 数字条 */
@@ -290,18 +430,27 @@
             margin-top: -40px;
             position: relative;
             z-index: 2;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-lg);
         }
+
         .stat-item {
             text-align: center;
+            transition: transform 0.3s ease;
         }
+
+        .stat-item:hover {
+            transform: translateY(-4px);
+        }
+
         .stat-item .num {
             font-size: 36px;
             font-weight: 700;
+            letter-spacing: 1px;
         }
+
         .stat-item .label {
             font-size: 14px;
-            opacity: 0.8;
+            opacity: 0.85;
             margin-top: 4px;
         }
 
@@ -311,6 +460,7 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 24px;
         }
+
         .product-card {
             background: #fff;
             border-radius: var(--radius);
@@ -320,26 +470,64 @@
             transition: var(--transition);
             cursor: pointer;
             border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
         }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transition: transform 0.35s ease;
+            transform-origin: left;
+            border-radius: 0 0 3px 3px;
+        }
+
+        .product-card:hover::before {
+            transform: scaleX(1);
+        }
+
         .product-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent);
-            box-shadow: 0 6px 24px rgba(196, 30, 42, 0.12);
+            transform: translateY(-6px);
+            border-color: #e8e8e8;
+            box-shadow: 0 10px 30px rgba(196, 30, 42, 0.1);
         }
-        .product-card .icon {
-            font-size: 40px;
-            margin-bottom: 14px;
+
+        .product-card .icon-circle {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            margin: 0 auto 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            transition: transform 0.35s ease;
         }
+
+        .product-card:hover .icon-circle {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
         .product-card h4 {
             font-size: 18px;
             margin-bottom: 6px;
             color: var(--primary);
         }
+
         .product-card .sub {
             font-size: 13px;
             color: var(--text-light);
             margin-bottom: 10px;
         }
+
         .product-card .tag {
             display: inline-block;
             background: #fce4e4;
@@ -348,44 +536,159 @@
             padding: 3px 10px;
             border-radius: 12px;
             margin: 2px 3px;
+            transition: background 0.25s ease;
         }
 
-        /* 新闻 */
-        .news-grid {
+        /* 产品大类卡片（二级） */
+        .category-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
         }
-        .news-item {
+
+        .category-card {
             background: #fff;
             border-radius: var(--radius);
-            overflow: hidden;
+            padding: 28px 24px;
             box-shadow: var(--shadow);
-            transition: var(--transition);
             cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            position: relative;
+            overflow: hidden;
+            /* ========== 分类卡片背景图：请在下方对应CSS规则中设置各分类的背景图片 ========== */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
-        .news-item:hover {
-            transform: translateY(-3px);
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.92);
+            z-index: 0;
+            transition: background 0.35s ease;
         }
-        .news-item .img {
-            height: 160px;
-            background: #dce6f0;
+
+        .category-card:hover::before {
+            background: rgba(255, 255, 255, 0.78);
+        }
+
+        .category-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 28px rgba(196, 30, 42, 0.12);
+        }
+
+        .category-card>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .category-card .icon-circle {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 40px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            transition: transform 0.35s ease;
         }
-        .news-item .info {
-            padding: 16px;
+
+        .category-card:hover .icon-circle {
+            transform: scale(1.12);
         }
-        .news-item .info .date {
-            font-size: 12px;
-            color: var(--text-light);
+
+        .category-card .desc h4 {
+            font-size: 17px;
+            color: var(--primary);
             margin-bottom: 4px;
         }
-        .news-item .info h4 {
-            font-size: 16px;
-            margin-bottom: 6px;
+
+        .category-card .desc p {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        /* 各分类卡片背景图设置（请替换url为实际图片链接） */
+        .category-card[data-cat="special_metallurgy"] {
+            /* background-image: url('images/category-bg-special-metallurgy.jpg'); */
+        }
+
+        .category-card[data-cat="profile"] {
+            /* background-image: url('images/category-bg-profile.jpg'); */
+        }
+
+        .category-card[data-cat="nuclear"] {
+            /* background-image: url('images/category-bg-nuclear.jpg'); */
+        }
+
+        .category-card[data-cat="tool_steel"] {
+            /* background-image: url('images/category-bg-tool-steel.jpg'); */
+        }
+
+        .category-card[data-cat="pipe"] {
+            /* background-image: url('images/category-bg-pipe.jpg'); */
+        }
+
+        .category-card[data-cat="strip"] {
+            /* background-image: url('images/category-bg-strip.jpg'); */
+        }
+
+        /* 产品详情表格 */
+        .product-table-wrap {
+            overflow-x: auto;
+            margin: 24px 0;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .product-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            background: #fff;
+        }
+
+        .product-table thead {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .product-table th {
+            padding: 12px 14px;
+            text-align: left;
+            font-weight: 600;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+        }
+
+        .product-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+            transition: background 0.2s ease;
+        }
+
+        .product-table tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .product-table tbody tr {
+            transition: background 0.2s ease;
+        }
+
+        .product-table .highlight {
+            color: var(--accent);
+            font-weight: 600;
         }
 
         /* 底部 */
@@ -394,20 +697,31 @@
             color: #ccc;
             padding: 48px 0 24px;
         }
+
         .footer-grid {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr 1fr;
             gap: 36px;
         }
+
         .footer h5 {
             color: #fff;
             margin-bottom: 14px;
             font-size: 16px;
+            letter-spacing: 0.5px;
         }
+
         .footer li {
             margin-bottom: 6px;
             font-size: 14px;
+            transition: color 0.25s ease;
+            cursor: pointer;
         }
+
+        .footer li:hover {
+            color: #fff;
+        }
+
         .footer-bottom {
             border-top: 1px solid #333;
             margin-top: 32px;
@@ -419,9 +733,23 @@
         /* 分页容器 */
         .page {
             display: none;
+            animation: pageFadeIn 0.4s ease;
         }
+
         .page.active {
             display: block;
+        }
+
+        @keyframes pageFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* 面包屑 */
@@ -431,124 +759,15 @@
             font-size: 14px;
             color: var(--text-light);
         }
+
         .breadcrumb a {
             color: var(--primary);
+            transition: color 0.25s ease;
         }
+
         .breadcrumb a:hover {
             text-decoration: underline;
-        }
-
-        /* 产品子导航 */
-        .subnav {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 28px;
-        }
-        .subnav a {
-            padding: 8px 20px;
-            border-radius: 20px;
-            background: #eef1f5;
-            color: var(--text-mid);
-            font-size: 14px;
-            font-weight: 500;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-        .subnav a:hover,
-        .subnav a.active {
-            background: var(--accent);
-            color: #fff;
-        }
-
-        /* 产品大类卡片（二级） */
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-        .category-card {
-            background: #fff;
-            border-radius: var(--radius);
-            padding: 24px;
-            box-shadow: var(--shadow);
-            cursor: pointer;
-            transition: var(--transition);
-            border: 1px solid transparent;
-            display: flex;
-            align-items: center;
-            gap: 18px;
-        }
-        .category-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-2px);
-        }
-        .category-card .icon {
-            font-size: 36px;
-            flex-shrink: 0;
-        }
-        .category-card .desc h4 {
-            font-size: 17px;
-            color: var(--primary);
-            margin-bottom: 4px;
-        }
-        .category-card .desc p {
-            font-size: 13px;
-            color: var(--text-light);
-        }
-
-        /* 产品详情表格 */
-        .product-table-wrap {
-            overflow-x: auto;
-            margin: 24px 0;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-        }
-        .product-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-            background: #fff;
-        }
-        .product-table thead {
-            background: var(--primary);
-            color: #fff;
-        }
-        .product-table th {
-            padding: 12px 14px;
-            text-align: left;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-        .product-table td {
-            padding: 10px 14px;
-            border-bottom: 1px solid var(--border);
-            vertical-align: top;
-        }
-        .product-table tbody tr:hover {
-            background: #f8fafc;
-        }
-        .product-table .highlight {
             color: var(--accent);
-            font-weight: 600;
-        }
-
-        /* 资质认证 */
-        .cert-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            text-align: center;
-        }
-        .cert-item {
-            background: #fff;
-            padding: 20px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-        }
-        .cert-item .icon {
-            font-size: 32px;
-            margin-bottom: 8px;
         }
 
         /* 联系表单 */
@@ -557,6 +776,7 @@
             grid-template-columns: 1fr 1fr;
             gap: 36px;
         }
+
         .contact-form input,
         .contact-form textarea {
             width: 100%;
@@ -566,11 +786,21 @@
             border-radius: 6px;
             font-size: 14px;
             font-family: inherit;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(44, 95, 138, 0.1);
+        }
+
         .contact-form textarea {
             height: 120px;
             resize: vertical;
         }
+
         .contact-form button {
             background: var(--accent);
             color: #fff;
@@ -581,9 +811,128 @@
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
+            letter-spacing: 0.5px;
         }
+
         .contact-form button:hover {
             background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(196, 30, 42, 0.4);
+        }
+
+        /* 滚动渐显动画 */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 回到顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            z-index: 99;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+            pointer-events: none;
+            box-shadow: 0 4px 14px rgba(196, 30, 42, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .back-to-top:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(196, 30, 42, 0.5);
+        }
+
+        /* ==================== 技术装备全屏蒙版区块 ==================== */
+        .equipment-section {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: transform 0.6s ease;
+        }
+
+        .equipment-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 1;
+            transition: background 0.4s ease;
+        }
+
+        .equipment-section:hover::before {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .equipment-section .equipment-content {
+            position: relative;
+            z-index: 2;
+            color: #fff;
+            text-align: center;
+            max-width: 900px;
+            padding: 0 20px;
+            transform: translateY(0);
+            transition: transform 0.4s ease;
+        }
+
+        .equipment-section:hover .equipment-content {
+            transform: translateY(-10px);
+        }
+
+        .equipment-section .equipment-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            font-weight: 700;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .equipment-section .equipment-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .equipment-section .equipment-content h2 {
+                font-size: 1.8rem;
+            }
+            .equipment-section .equipment-content p {
+                font-size: 0.95rem;
+            }
         }
 
         /* 响应式 */
@@ -593,25 +942,28 @@
             .footer-grid {
                 grid-template-columns: 1fr;
             }
-            .product-grid,
-            .news-grid {
+            .product-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
             .category-grid {
                 grid-template-columns: 1fr;
-            }
-            .cert-grid {
-                grid-template-columns: repeat(2, 1fr);
             }
             .nav a {
                 padding: 16px 8px;
                 font-size: 12px;
             }
             .hero h1 {
-                font-size: 32px;
+                font-size: 30px;
+            }
+            .hero {
+                min-height: 60vh;
             }
             .stats-row {
                 gap: 24px;
+                padding: 28px 16px;
+            }
+            .stat-item .num {
+                font-size: 28px;
             }
             .logo .name {
                 font-size: 15px;
@@ -619,14 +971,18 @@
             .logo .name sub {
                 font-size: 9px;
             }
-        }
-        @media (max-width: 600px) {
-            .product-grid,
-            .news-grid {
-                grid-template-columns: 1fr;
+            .back-to-top {
+                bottom: 20px;
+                right: 16px;
+                width: 38px;
+                height: 38px;
+                font-size: 16px;
             }
-            .cert-grid {
-                grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (max-width: 600px) {
+            .product-grid {
+                grid-template-columns: 1fr;
             }
             .header .container {
                 flex-wrap: wrap;
@@ -641,11 +997,22 @@
             .nav a {
                 padding: 10px 12px;
                 font-size: 12px;
-                border-bottom: 2px solid transparent;
+            }
+            .hero h1 {
+                font-size: 24px;
+                letter-spacing: 1px;
+            }
+            .hero p {
+                font-size: 14px;
+            }
+            .btn {
+                padding: 10px 22px;
+                font-size: 13px;
             }
         }
     </style>
 </head>
+
 <body>
 
     <!-- ========== 顶部栏 ========== -->
@@ -653,26 +1020,27 @@
         <div class="container">
             <span data-i18n="topbar.welcome">欢迎来到重庆千里行特种合金有限公司</span>
             <span style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
-                <a href="tel:023-68580000">📞 023-68580000</a>
-                <a href="mailto:info@cqqlx.com">📧 info@cqqlx.com</a>
-                <button class="lang-switch" id="langSwitchBtn" onclick="toggleLanguage()" title="Switch Language">🌐 EN</button>
+                <a href="tel:+8602367002005">+86 023 67002005</a>
+                <a href="mailto:sale@cqqlx.com">sale@cqqlx.com</a>
+                <button class="lang-switch" id="langSwitchBtn" onclick="toggleLanguage()"
+                    title="Switch Language">EN</button>
             </span>
         </div>
     </div>
 
     <!-- ========== 头部导航 ========== -->
-    <header class="header">
+    <header class="header" id="mainHeader">
         <div class="container">
             <div class="logo">
-                <svg width="44" height="44" viewBox="0 0 44 44"><rect x="2" y="2" width="40" height="40" rx="8" fill="#1a3a5c"/><text x="22" y="30" text-anchor="middle" fill="#fff" font-size="22" font-weight="700">千</text></svg>
-                <span class="name"><span data-i18n="company.shortName">重庆千里行特种合金有限公司</span><sub data-i18n="company.englishName">Chongqing Qianlixing Special Alloy Co., Ltd.</sub></span>
+                <div class="logo-icon"><img src="images/千里行LOGO带R标.png"></div>
+                <span class="name"><span data-i18n="company.shortName">重庆千里行特种合金有限公司</span><sub
+                        data-i18n="company.englishName">Chongqing Qianlixing Special Alloy Co., Ltd.</sub></span>
             </div>
             <nav class="nav" id="mainNav">
                 <a class="active" data-page="home" data-i18n="nav.home">首页</a>
                 <a data-page="about" data-i18n="nav.about">关于我们</a>
                 <a data-page="products" data-i18n="nav.products">产品中心</a>
                 <a data-page="equipment" data-i18n="nav.equipment">技术装备</a>
-                <!-- <a data-page="news" data-i18n="nav.news">新闻中心</a> -->
                 <a data-page="contact" data-i18n="nav.contact">联系我们</a>
             </nav>
         </div>
@@ -683,78 +1051,117 @@
 
         <!-- ──────── 首页 ──────── -->
         <div class="page active" id="page-home">
+            <!-- Hero大图区域 -->
             <section class="hero">
                 <div class="container">
                     <h1 data-i18n="hero.title">铸特种合金 · 造大国重器</h1>
-                    <p data-i18n="hero.subtitle">重庆千里行特种合金有限公司是集特种冶金材料研发、生产、销售于一体的高新技术企业，聚焦高温合金、钛合金、超高强结构钢、特种不锈钢等领域，产品广泛应用于航空航天、核电能源、高端装备制造等行业。</p>
+                    <p data-i18n="hero.subtitle">
+                        重庆千里行特种合金有限公司是集特种冶金材料研发、生产、销售于一体的高新技术企业，聚焦高温合金、钛合金、超高强结构钢、特种不锈钢等领域，产品广泛应用于航空航天、核电能源、高端装备制造等行业。
+                    </p>
                     <div class="btns">
-                        <span class="btn btn-primary" onclick="navigateTo('products')" data-i18n="hero.btnProducts">查看产品中心</span>
-                        <span class="btn btn-outline" onclick="navigateTo('about')" data-i18n="hero.btnAbout">了解千里行</span>
+                        <span class="btn btn-primary" onclick="navigateTo('products')"
+                            data-i18n="hero.btnProducts">查看产品中心</span>
+                        <span class="btn btn-outline" onclick="navigateTo('about')"
+                            data-i18n="hero.btnAbout">了解千里行</span>
                     </div>
                 </div>
             </section>
             <div class="container">
-                <div class="stats-row">
-                    <div class="stat-item"><div class="num">80+</div><div class="label" data-i18n="stats.alloys">合金牌号</div></div>
-                    <div class="stat-item"><div class="num">50,000㎡</div><div class="label" data-i18n="stats.area">生产基地面积</div></div>
-                    <div class="stat-item"><div class="num">18+</div><div class="label" data-i18n="stats.experience">行业经验(年)</div></div>
-                    <div class="stat-item"><div class="num">200+</div><div class="label" data-i18n="stats.customers">服务客户</div></div>
+                <div class="stats-row reveal">
+                    <div class="stat-item">
+                        <div class="num" data-count="80">80+</div>
+                        <div class="label" data-i18n="stats.alloys">合金牌号</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="num" data-count="50000">50,000㎡</div>
+                        <div class="label" data-i18n="stats.area">生产基地面积</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="num" data-count="18">18+</div>
+                        <div class="label" data-i18n="stats.experience">行业经验(年)</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="num" data-count="200">200+</div>
+                        <div class="label" data-i18n="stats.customers">服务客户</div>
+                    </div>
                 </div>
             </div>
             <section class="section">
                 <div class="container">
-                    <div class="section-title"><h2 data-i18n="home.productsTitle">产品中心</h2><div class="line"></div><p data-i18n="home.productsSubtitle">六大产品系列，满足航空航天、核电能源、高端装备等行业需求</p></div>
-                    <div class="product-grid" id="homeProductGrid"></div>
-                    <div style="text-align:center;margin-top:24px;">
-                        <span class="btn btn-primary" onclick="navigateTo('products')" data-i18n="home.viewAll">查看全部产品 →</span>
+                    <div class="section-title reveal">
+                        <h2 data-i18n="home.productsTitle">产品中心</h2>
+                        <div class="line"></div>
+                        <p data-i18n="home.productsSubtitle">六大产品系列，满足航空航天、核电能源、高端装备等行业需求</p>
+                    </div>
+                    <div class="product-grid reveal" id="homeProductGrid"></div>
+                    <div style="text-align:center;margin-top:24px;" class="reveal">
+                        <span class="btn btn-primary" onclick="navigateTo('products')"
+                            data-i18n="home.viewAll">查看全部产品</span>
                     </div>
                 </div>
             </section>
             <section class="section bg-light">
                 <div class="container">
-                    <div class="section-title"><h2 data-i18n="home.aboutTitle">关于千里行</h2><div class="line"></div></div>
-                    <div class="about-grid">
+                    <div class="section-title reveal">
+                        <h2 data-i18n="home.aboutTitle">关于千里行</h2>
+                        <div class="line"></div>
+                    </div>
+                    <div class="about-grid reveal">
                         <div class="text">
                             <h3 data-i18n="home.aboutHeading">立足重庆 · 面向全球</h3>
-                            <p data-i18n="home.aboutText1">重庆千里行特种合金有限公司坐落于重庆市，是一家专注于特种冶金材料研发与制造的高新技术企业。公司依托先进的特种冶金装备和严格的质量管理体系，致力于为国防军工、航空航天、核电能源、石油化工等领域提供高品质特种合金材料。</p>
+                            <p data-i18n="home.aboutText1">
+                                重庆千里行特种合金有限公司坐落于重庆市，是一家专注于特种冶金材料研发与制造的高新技术企业。公司依托先进的特种冶金装备和严格的质量管理体系，致力于为国防军工、航空航天、核电能源、石油化工等领域提供高品质特种合金材料。
+                            </p>
                             <p data-i18n="home.aboutText2">公司拥有真空感应炉、电渣重熔炉、快锻机、径锻机等先进生产设备，具备从冶炼、锻造到精密加工的全流程制造能力。</p>
                         </div>
-                        <div class="img-placeholder">🏭 <span data-i18n="home.factoryPhoto">工厂实景照片</span></div>
+                        <div class="img-placeholder"><span data-i18n="home.factoryPhoto">工厂实景照片</span></div>
                     </div>
-                </div>
-            </section>
-            <section class="section bg-white">
-                <div class="container">
-                    <!-- <div class="section-title"><h2 data-i18n="home.newsTitle">新闻动态</h2><div class="line"></div></div> -->
-                    <div class="news-grid" id="homeNewsGrid"></div>
                 </div>
             </section>
         </div>
 
         <!-- ──────── 关于我们 ──────── -->
         <div class="page" id="page-about">
-            <div class="breadcrumb"><div class="container"><a onclick="navigateTo('home')" data-i18n="breadcrumb.home">首页</a> &gt; <span data-i18n="nav.about">关于我们</span></div></div>
+            <div class="breadcrumb">
+                <div class="container"><a onclick="navigateTo('home')" data-i18n="breadcrumb.home">首页</a> &gt; <span
+                        data-i18n="nav.about">关于我们</span></div>
+            </div>
             <section class="section bg-white">
                 <div class="container">
-                    <div class="section-title"><h2 data-i18n="about.title">公司简介</h2><div class="line"></div></div>
-                    <div class="about-grid">
+                    <div class="section-title reveal">
+                        <h2 data-i18n="about.title">公司简介</h2>
+                        <div class="line"></div>
+                    </div>
+                    <div class="about-grid reveal">
                         <div class="text">
-                            <p data-i18n="about.text1">重庆千里行特种合金有限公司是一家集特种冶金材料研发、生产、销售于一体的高新技术企业。公司专注于高温合金、钛合金、超高强结构钢、特种不锈钢、工模具钢、核电用钢等高性能特种合金材料领域，产品广泛应用于国防军工、航空航天、核电能源、石油化工、先进交通、工程机械、海洋工程等行业。</p>
-                            <p data-i18n="about.text2">公司生产基地位于重庆市，占地面积约50,000平方米，建有特种冶炼、锻造、精密钢管、板带加工等多条现代化产线，具备年产各类特种合金材料超过3万吨的综合产能。</p>
-                            <p data-i18n="about.text3">千里行特冶秉承"品质至上、创新驱动、客户第一"的经营理念，严格按照ISO9001、AS9100等国际质量管理体系标准组织生产，拥有完善的理化检测中心和质量追溯体系，确保每一批次产品的卓越品质。</p>
+                            <p data-i18n="about.text1">
+                                重庆千里行特种合金有限公司是一家集特种冶金材料研发、生产、销售于一体的高新技术企业。公司专注于高温合金、钛合金、超高强结构钢、特种不锈钢、工模具钢、核电用钢等高性能特种合金材料领域，产品广泛应用于国防军工、航空航天、核电能源、石油化工、先进交通、工程机械、海洋工程等行业。
+                            </p>
+                            <p data-i18n="about.text2">
+                                公司生产基地位于重庆市，占地面积约50,000平方米，建有特种冶炼、锻造、精密钢管、板带加工等多条现代化产线，具备年产各类特种合金材料超过3万吨的综合产能。</p>
+                            <p data-i18n="about.text3">
+                                千里行特冶秉承"品质至上、创新驱动、客户第一"的经营理念，严格按照ISO9001、AS9100等国际质量管理体系标准组织生产，拥有完善的理化检测中心和质量追溯体系，确保每一批次产品的卓越品质。
+                            </p>
                         </div>
-                        <div class="img-placeholder">🏭 <span data-i18n="about.factoryPanorama">千里行工厂全景</span></div>
+                        <div class="img-placeholder"><span data-i18n="about.factoryPanorama">千里行工厂全景</span></div>
                     </div>
                 </div>
             </section>
             <section class="section bg-light">
                 <div class="container">
-                    <div class="section-title"><h2 data-i18n="about.visionTitle">企业愿景与文化</h2><div class="line"></div></div>
-                    <div style="max-width:800px;margin:0 auto;">
-                        <p style="margin-bottom:12px;"><strong data-i18n="about.vision">企业愿景：</strong><span data-i18n="about.visionText">成为国内领先、国际一流的特种合金材料综合服务商。</span></p>
-                        <p style="margin-bottom:12px;"><strong data-i18n="about.mission">企业使命：</strong><span data-i18n="about.missionText">以特种冶金技术为核心，为国家高端装备制造提供关键材料保障。</span></p>
-                        <p style="margin-bottom:12px;"><strong data-i18n="about.values">核心价值观：</strong><span data-i18n="about.valuesText">诚信、创新、高效、共赢。</span></p>
-                        <p style="margin-bottom:12px;"><strong data-i18n="about.policy">管理方针：</strong><span data-i18n="about.policyText">精益求精、追求卓越、客户满意、持续改进。</span></p>
+                    <div class="section-title reveal">
+                        <h2 data-i18n="about.visionTitle">企业愿景与文化</h2>
+                        <div class="line"></div>
+                    </div>
+                    <div style="max-width:800px;margin:0 auto;" class="reveal">
+                        <p style="margin-bottom:12px;"><strong data-i18n="about.vision">企业愿景：</strong><span
+                                data-i18n="about.visionText">成为国内领先、国际一流的特种合金材料综合服务商。</span></p>
+                        <p style="margin-bottom:12px;"><strong data-i18n="about.mission">企业使命：</strong><span
+                                data-i18n="about.missionText">以特种冶金技术为核心，为国家高端装备制造提供关键材料保障。</span></p>
+                        <p style="margin-bottom:12px;"><strong data-i18n="about.values">核心价值观：</strong><span
+                                data-i18n="about.valuesText">诚信、创新、高效、共赢。</span></p>
+                        <p style="margin-bottom:12px;"><strong data-i18n="about.policy">管理方针：</strong><span
+                                data-i18n="about.policyText">精益求精、追求卓越、客户满意、持续改进。</span></p>
                     </div>
                 </div>
             </section>
@@ -762,84 +1169,142 @@
 
         <!-- ──────── 产品中心 ──────── -->
         <div class="page" id="page-products">
-            <div class="breadcrumb"><div class="container"><a onclick="navigateTo('home')" data-i18n="breadcrumb.home">首页</a> &gt; <span data-i18n="nav.products">产品中心</span></div></div>
+            <div class="breadcrumb">
+                <div class="container"><a onclick="navigateTo('home')" data-i18n="breadcrumb.home">首页</a> &gt; <span
+                        data-i18n="nav.products">产品中心</span></div>
+            </div>
             <section class="section bg-white">
                 <div class="container">
-                    <div class="section-title"><h2 data-i18n="products.title">产品中心</h2><div class="line"></div><p data-i18n="products.subtitle">点击下方大类查看详细产品分类</p></div>
-                    <div class="category-grid" id="categoryGrid"></div>
+                    <div class="section-title reveal">
+                        <h2 data-i18n="products.title">产品中心</h2>
+                        <div class="line"></div>
+                        <p data-i18n="products.subtitle">点击下方大类查看详细产品分类</p>
+                    </div>
+                    <div class="category-grid reveal" id="categoryGrid"></div>
                 </div>
             </section>
         </div>
 
         <!-- ──────── 产品大类详情（二级）──────── -->
         <div class="page" id="page-category-detail">
-            <div class="breadcrumb"><div class="container"><a onclick="navigateTo('home')" data-i18n="breadcrumb.home">首页</a> &gt; <a onclick="navigateTo('products')" data-i18n="nav.products">产品中心</a> &gt; <span id="breadcrumbCategoryName"></span></div></div>
+            <div class="breadcrumb">
+                <div class="container"><a onclick="navigateTo('home')" data-i18n="breadcrumb.home">首页</a> &gt; <a
+                        onclick="navigateTo('products')" data-i18n="nav.products">产品中心</a> &gt; <span
+                        id="breadcrumbCategoryName"></span></div>
+            </div>
             <section class="section bg-white">
                 <div class="container">
-                    <div class="section-title"><h2 id="categoryDetailTitle"></h2><div class="line"></div></div>
-                    <div id="categoryDetailIntro" style="max-width:800px;margin:0 auto 30px;text-align:center;color:var(--text-mid);"></div>
-                    <div class="category-grid" id="subCategoryGrid"></div>
+                    <div class="section-title reveal">
+                        <h2 id="categoryDetailTitle"></h2>
+                        <div class="line"></div>
+                    </div>
+                    <div id="categoryDetailIntro"
+                        style="max-width:800px;margin:0 auto 30px;text-align:center;color:var(--text-mid);"
+                        class="reveal"></div>
+                    <div class="category-grid reveal" id="subCategoryGrid"></div>
                 </div>
             </section>
         </div>
 
         <!-- ──────── 小分类产品详情（三级）──────── -->
         <div class="page" id="page-product-detail">
-            <div class="breadcrumb"><div class="container"><a onclick="navigateTo('home')" data-i18n="breadcrumb.home">首页</a> &gt; <a onclick="navigateTo('products')" data-i18n="nav.products">产品中心</a> &gt; <a id="breadcrumbParentLink">...</a> &gt; <span id="breadcrumbProductName"></span></div></div>
+            <div class="breadcrumb">
+                <div class="container"><a onclick="navigateTo('home')" data-i18n="breadcrumb.home">首页</a> &gt; <a
+                        onclick="navigateTo('products')" data-i18n="nav.products">产品中心</a> &gt; <a
+                        id="breadcrumbParentLink">...</a> &gt; <span id="breadcrumbProductName"></span></div>
+            </div>
             <section class="section bg-white">
                 <div class="container">
-                    <div class="section-title"><h2 id="productDetailTitle"></h2><div class="line"></div></div>
-                    <div id="productDetailIntro" style="max-width:800px;margin:0 auto 30px;color:var(--text-mid);line-height:1.9;"></div>
-                    <h3 style="font-size:20px;color:var(--primary);margin-bottom:16px;" data-i18n="product.tableTitle">📋 产品大纲</h3>
-                    <div class="product-table-wrap" id="productTableWrap"></div>
+                    <div class="section-title reveal">
+                        <h2 id="productDetailTitle"></h2>
+                        <div class="line"></div>
+                    </div>
+                    <div id="productDetailIntro"
+                        style="max-width:800px;margin:0 auto 30px;color:var(--text-mid);line-height:1.9;"
+                        class="reveal"></div>
+                    <h3 style="font-size:20px;color:var(--primary);margin-bottom:16px;" data-i18n="product.tableTitle"
+                        class="reveal">产品大纲</h3>
+                    <div class="product-table-wrap reveal" id="productTableWrap"></div>
                 </div>
             </section>
         </div>
 
-        <!-- ──────── 技术装备 ──────── -->
+        <!-- ──────── 技术装备（全屏蒙版区块）──────── -->
         <div class="page" id="page-equipment">
-            <div class="breadcrumb"><div class="container"><a onclick="navigateTo('home')" data-i18n="breadcrumb.home">首页</a> &gt; <span data-i18n="nav.equipment">技术装备</span></div></div>
-            <section class="section bg-white">
-                <div class="container">
-                    <div class="section-title"><h2 data-i18n="equipment.title">技术装备</h2><div class="line"></div><p data-i18n="equipment.subtitle">先进的特种冶金生产装备，保障卓越产品品质</p></div>
-                    <div style="max-width:800px;margin:0 auto;" id="equipmentContent"></div>
+            <div class="breadcrumb">
+                <div class="container"><a onclick="navigateTo('home')" data-i18n="breadcrumb.home">首页</a> &gt; <span data-i18n="nav.equipment">技术装备</span></div>
+            </div>
+
+            <!-- 特种冶炼产线 -->
+            <!-- 图片链接：请替换 background-image 的 url 为实际图片路径 -->
+            <section class="equipment-section reveal" style="background-image: url('images/大型钢管.jpeg');">
+                <div class="equipment-content">
+                    <h2 data-i18n="equipment.smeltingTitle">特种冶炼产线</h2>
+                    <p data-i18n="equipment.smeltingText">公司拥有包括真空感应炉（VIM）、保护气氛电渣重熔炉（ESR）、真空自耗电弧炉（VAR）在内的多种特种冶炼装备，具备真空感应熔炼、电渣重熔、真空自耗重熔以及双联/三联熔炼等完整的超纯净特种冶炼技术能力，可精准冶炼蒙乃尔合金（Monel 400、Monel K500 等）及各类特种合金，保障蒙乃尔合金原材料的高纯度与性能稳定性。</p>
+                </div>
+            </section>
+
+            <!-- 锻造产线 -->
+            <!-- 图片链接：请替换 background-image 的 url 为实际图片路径 -->
+            <section class="equipment-section reveal" style="background-image: url('images/联系我们图片.png');">
+                <div class="equipment-content">
+                    <h2 data-i18n="equipment.forgingTitle">锻造产线</h2>
+                    <p data-i18n="equipment.forgingText">配备快锻机和径锻机，可生产各类高品质锻棒、锻件、模块、环件等产品，可对蒙乃尔合金、高温合金等各类特种合金进行精准锻造，满足航空航天、核电、海洋工程等领域对蒙乃尔合金锻件的高标准要求。</p>
+                </div>
+            </section>
+
+            <!-- 精密钢管产线 -->
+            <!-- 图片链接：请替换 background-image 的 url 为实际图片路径 -->
+            <section class="equipment-section reveal" style="background-image: url('images/钢管产品.png');">
+                <div class="equipment-content">
+                    <h2 data-i18n="equipment.pipeTitle">精密钢管产线</h2>
+                    <p data-i18n="equipment.pipeText">拥有钢管热挤压产线和特殊合金冷轧无缝钢管产线，可生产外径1mm–610mm的蒙乃尔合金、高温合金、耐蚀合金、特种不锈钢等精密无缝钢管，覆盖蒙乃尔合金管材的全规格生产需求。</p>
+                </div>
+            </section>
+
+            <!-- 理化检测中心 -->
+            <!-- 图片链接：请替换 background-image 的 url 为实际图片路径 -->
+            <section class="equipment-section reveal" style="background-image: url('images/理化检测中心.jpg');">
+                <div class="equipment-content">
+                    <h2 data-i18n="equipment.labTitle">理化检测中心</h2>
+                    <p data-i18n="equipment.labText">配备直读光谱仪、碳硫分析仪、万能试验机、冲击试验机、金相显微镜等先进检测设备，可对蒙乃尔合金及各类产品进行全面理化检测，确保蒙乃尔合金产品及各类产品质量全过程受控、达标。</p>
                 </div>
             </section>
         </div>
-
-        <!-- ──────── 新闻中心 ──────── -->
-        <!-- <div class="page" id="page-news">
-            <div class="breadcrumb"><div class="container"><a onclick="navigateTo('home')" data-i18n="breadcrumb.home">首页</a> &gt; <span data-i18n="nav.news">新闻中心</span></div></div>
-            <section class="section bg-white">
-                <div class="container">
-                    <div class="section-title"><h2 data-i18n="news.title">新闻中心</h2><div class="line"></div></div>
-                    <div class="news-grid" id="allNewsGrid"></div>
-                </div>
-            </section>
-        </div> -->
 
         <!-- ──────── 联系我们 ──────── -->
         <div class="page" id="page-contact">
-            <div class="breadcrumb"><div class="container"><a onclick="navigateTo('home')" data-i18n="breadcrumb.home">首页</a> &gt; <span data-i18n="nav.contact">联系我们</span></div></div>
+            <div class="breadcrumb">
+                <div class="container"><a onclick="navigateTo('home')" data-i18n="breadcrumb.home">首页</a> &gt; <span
+                        data-i18n="nav.contact">联系我们</span></div>
+            </div>
             <section class="section bg-white">
                 <div class="container">
-                    <div class="section-title"><h2 data-i18n="contact.title">联系我们</h2><div class="line"></div></div>
-                    <div class="contact-grid">
+                    <div class="section-title reveal">
+                        <h2 data-i18n="contact.title">联系我们</h2>
+                        <div class="line"></div>
+                    </div>
+                    <div class="contact-grid reveal">
                         <div>
-                            <h4 data-i18n="contact.addressLabel">🏢 公司地址</h4>
+                            <h4 data-i18n="contact.addressLabel">公司地址</h4>
                             <p data-i18n="contact.address">重庆市涪陵区龙桥工业园区（特种合金产业基地）</p>
-                            <h4 style="margin-top:20px;" data-i18n="contact.phoneLabel">📞 联系电话</h4>
-                            <p data-i18n="contact.phone">总机：023-68580000 / 营销业务：023-68580111 / 技术服务：023-68580222</p>
-                            <h4 style="margin-top:20px;" data-i18n="contact.emailLabel">📧 电子邮箱</h4>
-                            <p data-i18n="contact.email">info@cqqlx.com / sales@cqqlx.com</p>
+                            <h4 style="margin-top:20px;" data-i18n="contact.phoneLabel">联系电话</h4>
+                            <p data-i18n="contact.phone">总机：+86 023 67002005 / 销售：+86 189 8389 4451</p>
+                            <h4 style="margin-top:20px;" data-i18n="contact.emailLabel">电子邮箱</h4>
+                            <p data-i18n="contact.email">sale@cqqlx.com</p>
                         </div>
                         <form class="contact-form" id="contactForm" onsubmit="return handleContactSubmit(event)">
-                            <input type="text" data-i18n-placeholder="contact.namePlaceholder" placeholder="您的姓名 *" required id="contactName">
-                            <input type="email" data-i18n-placeholder="contact.emailPlaceholder" placeholder="电子邮箱 *" required id="contactEmail">
-                            <input type="tel" data-i18n-placeholder="contact.phonePlaceholder" placeholder="联系电话" id="contactPhone">
-                            <textarea data-i18n-placeholder="contact.msgPlaceholder" placeholder="请输入您的咨询内容 *" required id="contactMsg"></textarea>
+                            <input type="text" data-i18n-placeholder="contact.namePlaceholder" placeholder="您的姓名 *"
+                                required id="contactName">
+                            <input type="email" data-i18n-placeholder="contact.emailPlaceholder" placeholder="电子邮箱 *"
+                                required id="contactEmail">
+                            <input type="tel" data-i18n-placeholder="contact.phonePlaceholder" placeholder="联系电话"
+                                id="contactPhone">
+                            <textarea data-i18n-placeholder="contact.msgPlaceholder" placeholder="请输入您的咨询内容 *" required
+                                id="contactMsg"></textarea>
                             <button type="submit" data-i18n="contact.submit">提交留言</button>
-                            <p id="contactFeedback" style="color:green;margin-top:8px;display:none;" data-i18n="contact.feedback">✅ 感谢您的留言，我们将尽快回复！</p>
+                            <p id="contactFeedback" style="color:green;margin-top:8px;display:none;"
+                                data-i18n="contact.feedback">感谢您的留言，我们将尽快回复！</p>
                         </form>
                     </div>
                 </div>
@@ -854,8 +1319,10 @@
             <div class="footer-grid">
                 <div>
                     <h5 data-i18n="company.shortName">重庆千里行特种合金有限公司</h5>
-                    <p style="font-size:13px;" data-i18n="company.englishName">Chongqing Qianlixing Special Alloy Co., Ltd.</p>
-                    <p style="font-size:13px;margin-top:8px;" data-i18n="footer.companyDesc">专注于特种冶金材料研发与制造的高新技术企业，产品涵盖高温合金、钛合金、超高强钢、特种不锈钢、工模具钢、核电用钢等系列。</p>
+                    <p style="font-size:13px;" data-i18n="company.englishName">Chongqing Qianlixing Special Alloy Co.,
+                        Ltd.</p>
+                    <p style="font-size:13px;margin-top:8px;" data-i18n="footer.companyDesc">
+                        专注于特种冶金材料研发与制造的高新技术企业，产品涵盖高温合金、钛合金、超高强钢、特种不锈钢、工模具钢、核电用钢等系列。</p>
                 </div>
                 <div>
                     <h5 data-i18n="footer.quickLinks">快速链接</h5>
@@ -863,7 +1330,7 @@
                         <li><a onclick="navigateTo('about')" data-i18n="nav.about">关于我们</a></li>
                         <li><a onclick="navigateTo('products')" data-i18n="nav.products">产品中心</a></li>
                         <li><a onclick="navigateTo('equipment')" data-i18n="nav.equipment">技术装备</a></li>
-                        <!-- <li><a onclick="navigateTo('news')" data-i18n="nav.news">新闻中心</a></li> -->
+                        <li><a onclick="navigateTo('contact')" data-i18n="nav.contact">联系我们</a></li>
                     </ul>
                 </div>
                 <div>
@@ -877,14 +1344,20 @@
                 </div>
                 <div>
                     <h5 data-i18n="contact.addressLabel">联系我们</h5>
-                    <p style="font-size:13px;">📍 <span data-i18n="footer.addressShort">重庆市涪陵区龙桥工业园区</span></p>
-                    <p style="font-size:13px;">📞 023-68580000</p>
-                    <p style="font-size:13px;">📧 info@cqqlx.com</p>
+                    <p style="font-size:13px;"><span data-i18n="footer.addressShort">重庆市涪陵区龙桥工业园区</span></p>
+                    <p style="font-size:13px;">+86 023 67002005</p>
+                    <p style="font-size:13px;">sale@cqqlx.com</p>
                 </div>
             </div>
-            <div class="footer-bottom" data-i18n="footer.copyright">&copy; 2024 重庆千里行特种合金有限公司 版权所有 | 渝ICP备XXXXXXXX号-1</div>
+            <div class="footer-bottom" data-i18n="footer.copyright">&copy; 2024 重庆千里行特种合金有限公司 版权所有 
+                <!-- | 渝ICP备XXXXXXXX号-1 -->
+            </div>
         </div>
     </footer>
+
+    <!-- 回到顶部按钮 -->
+    <button class="back-to-top" id="backToTopBtn" title="回到顶部"
+        onclick="window.scrollTo({top:0,behavior:'smooth'})">&#9650;</button>
 
     <script>
         // ===================== 国际化数据 i18n =====================
@@ -897,7 +1370,6 @@
                 'nav.about': '关于我们',
                 'nav.products': '产品中心',
                 'nav.equipment': '技术装备',
-                'nav.news': '新闻中心',
                 'nav.contact': '联系我们',
                 'hero.title': '铸特种合金 · 造大国重器',
                 'hero.subtitle': '重庆千里行特种合金有限公司是集特种冶金材料研发、生产、销售于一体的高新技术企业，聚焦高温合金、钛合金、超高强结构钢、特种不锈钢等领域，产品广泛应用于航空航天、核电能源、高端装备制造等行业。',
@@ -909,13 +1381,12 @@
                 'stats.customers': '服务客户',
                 'home.productsTitle': '产品中心',
                 'home.productsSubtitle': '六大产品系列，满足航空航天、核电能源、高端装备等行业需求',
-                'home.viewAll': '查看全部产品 →',
+                'home.viewAll': '查看全部产品',
                 'home.aboutTitle': '关于千里行',
                 'home.aboutHeading': '立足重庆 · 面向全球',
                 'home.aboutText1': '重庆千里行特种合金有限公司坐落于重庆市，是一家专注于特种冶金材料研发与制造的高新技术企业。公司依托先进的特种冶金装备和严格的质量管理体系，致力于为国防军工、航空航天、核电能源、石油化工等领域提供高品质特种合金材料。',
                 'home.aboutText2': '公司拥有真空感应炉、电渣重熔炉、快锻机、径锻机等先进生产设备，具备从冶炼、锻造到精密加工的全流程制造能力。',
                 'home.factoryPhoto': '工厂实景照片',
-                'home.newsTitle': '新闻动态',
                 'breadcrumb.home': '首页',
                 'about.title': '公司简介',
                 'about.text1': '重庆千里行特种合金有限公司是一家集特种冶金材料研发、生产、销售于一体的高新技术企业。公司专注于高温合金、钛合金、超高强结构钢、特种不锈钢、工模具钢、核电用钢等高性能特种合金材料领域，产品广泛应用于国防军工、航空航天、核电能源、石油化工、先进交通、工程机械、海洋工程等行业。',
@@ -933,31 +1404,28 @@
                 'about.policyText': '精益求精、追求卓越、客户满意、持续改进。',
                 'products.title': '产品中心',
                 'products.subtitle': '点击下方大类查看详细产品分类',
-                'product.tableTitle': '📋 产品大纲',
-                'equipment.title': '技术装备',
-                'equipment.subtitle': '先进的特种冶金生产装备，保障卓越产品品质',
-                'equipment.smelting': '特种冶炼产线',
-                'equipment.smeltingText': '公司拥有包括真空感应炉（VIM）、保护气氛电渣重熔炉（ESR）、真空自耗电弧炉（VAR）在内的多种特种冶炼装备，具备真空感应熔炼、电渣重熔、真空自耗重熔以及双联/三联熔炼等完整的超纯净特种冶炼技术能力。',
-                'equipment.forging': '锻造产线',
-                'equipment.forgingText': '配备快锻机和径锻机，可生产各类高品质锻棒、锻件、模块、环件等产品，满足航空航天、核电等领域对锻件的高标准要求。',
-                'equipment.pipe': '精密钢管产线',
-                'equipment.pipeText': '拥有钢管热挤压产线和特殊合金冷轧无缝钢管产线，可生产外径1mm–610mm的高温合金、耐蚀合金、特种不锈钢等精密无缝钢管。',
-                'equipment.lab': '理化检测中心',
-                'equipment.labText': '配备直读光谱仪、碳硫分析仪、万能试验机、冲击试验机、金相显微镜等先进检测设备，确保产品质量全过程受控。',
-                'news.title': '新闻中心',
+                'product.tableTitle': '产品大纲',
+                'equipment.smeltingTitle': '特种冶炼产线',
+                'equipment.smeltingText': '公司拥有包括真空感应炉（VIM）、保护气氛电渣重熔炉（ESR）、真空自耗电弧炉（VAR）在内的多种特种冶炼装备，具备真空感应熔炼、电渣重熔、真空自耗重熔以及双联/三联熔炼等完整的超纯净特种冶炼技术能力，可精准冶炼蒙乃尔合金（Monel 400、Monel K500 等）及各类特种合金，保障蒙乃尔合金原材料的高纯度与性能稳定性。',
+                'equipment.forgingTitle': '锻造产线',
+                'equipment.forgingText': '配备快锻机和径锻机，可生产各类高品质锻棒、锻件、模块、环件等产品，可对蒙乃尔合金、高温合金等各类特种合金进行精准锻造，满足航空航天、核电、海洋工程等领域对蒙乃尔合金锻件的高标准要求。',
+                'equipment.pipeTitle': '精密钢管产线',
+                'equipment.pipeText': '拥有钢管热挤压产线和特殊合金冷轧无缝钢管产线，可生产外径1mm–610mm的蒙乃尔合金、高温合金、耐蚀合金、特种不锈钢等精密无缝钢管，覆盖蒙乃尔合金管材的全规格生产需求。',
+                'equipment.labTitle': '理化检测中心',
+                'equipment.labText': '配备直读光谱仪、碳硫分析仪、万能试验机、冲击试验机、金相显微镜等先进检测设备，可对蒙乃尔合金及各类产品进行全面理化检测，确保蒙乃尔合金产品及各类产品质量全过程受控、达标。',
                 'contact.title': '联系我们',
-                'contact.addressLabel': '🏢 公司地址',
+                'contact.addressLabel': '公司地址',
                 'contact.address': '重庆市涪陵区龙桥工业园区（特种合金产业基地）',
-                'contact.phoneLabel': '📞 联系电话',
-                'contact.phone': '总机：023-68580000 / 营销业务：023-68580111 / 技术服务：023-68580222',
-                'contact.emailLabel': '📧 电子邮箱',
-                'contact.email': 'info@cqqlx.com / sales@cqqlx.com',
+                'contact.phoneLabel': '联系电话',
+                'contact.phone': '总机：+86 023 67002005 / 销售：+86 189 8389 4451',
+                'contact.emailLabel': '电子邮箱',
+                'contact.email': 'sale@cqqlx.com',
                 'contact.namePlaceholder': '您的姓名 *',
                 'contact.emailPlaceholder': '电子邮箱 *',
                 'contact.phonePlaceholder': '联系电话',
                 'contact.msgPlaceholder': '请输入您的咨询内容 *',
                 'contact.submit': '提交留言',
-                'contact.feedback': '✅ 感谢您的留言，我们将尽快回复！',
+                'contact.feedback': '感谢您的留言，我们将尽快回复！',
                 'footer.companyDesc': '专注于特种冶金材料研发与制造的高新技术企业，产品涵盖高温合金、钛合金、超高强钢、特种不锈钢、工模具钢、核电用钢等系列。',
                 'footer.quickLinks': '快速链接',
                 'footer.productCat': '产品分类',
@@ -966,13 +1434,13 @@
                 'footer.cat3': '核电产品',
                 'footer.cat4': '工模具钢产品',
                 'footer.addressShort': '重庆市涪陵区龙桥工业园区',
-                'footer.copyright': '© 2024 重庆千里行特种合金有限公司 版权所有 | 渝ICP备XXXXXXXX号-1',
-                'product.viewDetail': '查看详情 →',
-                'product.viewOutline': '查看产品大纲 →',
+                'footer.copyright': '© 2024 重庆千里行特种合金有限公司 版权所有',
+                'product.viewDetail': '查看详情',
+                'product.viewOutline': '查看产品大纲',
                 'product.clickHint': '点击查看产品大纲',
                 'product.noData': '暂无产品大纲数据，敬请期待。',
                 'langSwitch': 'EN',
-                'langLabel': '🌐 EN',
+                'langLabel': 'EN',
             },
             en: {
                 'topbar.welcome': 'Welcome to Chongqing Qianlixing Special Alloy Co., Ltd.',
@@ -982,7 +1450,6 @@
                 'nav.about': 'About Us',
                 'nav.products': 'Products',
                 'nav.equipment': 'Equipment',
-                'nav.news': 'News',
                 'nav.contact': 'Contact',
                 'hero.title': 'Forging Special Alloys · Building National Strength',
                 'hero.subtitle': 'Chongqing Qianlixing Special Alloy Co., Ltd. is a high-tech enterprise integrating R&D, production and sales of special metallurgical materials, focusing on superalloys, titanium alloys, ultra-high strength structural steels, and special stainless steels. Our products are widely used in aerospace, nuclear energy, and high-end equipment manufacturing.',
@@ -994,13 +1461,12 @@
                 'stats.customers': 'Clients Served',
                 'home.productsTitle': 'Products',
                 'home.productsSubtitle': 'Six major product series serving aerospace, nuclear energy, and high-end equipment industries',
-                'home.viewAll': 'View All Products →',
+                'home.viewAll': 'View All Products',
                 'home.aboutTitle': 'About Qianlixing',
                 'home.aboutHeading': 'Based in Chongqing · Serving the World',
                 'home.aboutText1': 'Chongqing Qianlixing Special Alloy Co., Ltd. is located in Chongqing, a high-tech enterprise dedicated to the R&D and manufacturing of special metallurgical materials. Leveraging advanced special metallurgy equipment and stringent quality management systems, we provide high-quality special alloy materials for defense, aerospace, nuclear energy, petrochemical and other sectors.',
                 'home.aboutText2': 'The company possesses advanced production equipment including vacuum induction furnaces, ESR furnaces, fast forging machines, and radial forging machines, enabling full-process manufacturing capabilities from smelting and forging to precision machining.',
                 'home.factoryPhoto': 'Factory Photo',
-                'home.newsTitle': 'News & Updates',
                 'breadcrumb.home': 'Home',
                 'about.title': 'Company Profile',
                 'about.text1': 'Chongqing Qianlixing Special Alloy Co., Ltd. is a high-tech enterprise integrating R&D, production and sales of special metallurgical materials. We focus on superalloys, titanium alloys, ultra-high strength structural steels, special stainless steels, tool & die steels, and nuclear-grade steels, serving defense, aerospace, nuclear energy, petrochemical, advanced transportation, engineering machinery, and marine engineering industries.',
@@ -1018,31 +1484,28 @@
                 'about.policyText': 'Continuous improvement, pursuit of excellence, customer satisfaction, relentless progress.',
                 'products.title': 'Products Center',
                 'products.subtitle': 'Click on a category below to view detailed product classifications',
-                'product.tableTitle': '📋 Product Specifications',
-                'equipment.title': 'Technical Equipment',
-                'equipment.subtitle': 'Advanced special metallurgy production equipment ensuring superior product quality',
-                'equipment.smelting': 'Special Smelting Line',
-                'equipment.smeltingText': 'The company has various special smelting equipment including VIM, protective atmosphere ESR, and VAR furnaces, with complete ultra-clean special smelting technology capabilities including vacuum induction melting, ESR, VAR, and duplex/triplex melting.',
-                'equipment.forging': 'Forging Line',
-                'equipment.forgingText': 'Equipped with fast forging and radial forging machines, capable of producing high-quality forged bars, forgings, modules, and rings for aerospace and nuclear applications.',
-                'equipment.pipe': 'Precision Steel Tube Line',
-                'equipment.pipeText': 'Features hot extrusion and special alloy cold-rolled seamless tube production lines, capable of producing superalloy, corrosion-resistant alloy, and special stainless steel precision seamless tubes from OD 1mm to 610mm.',
-                'equipment.lab': 'Physical-Chemical Testing Center',
-                'equipment.labText': 'Equipped with direct-reading spectrometers, carbon-sulfur analyzers, universal testing machines, impact testers, and metallographic microscopes to ensure full-process quality control.',
-                'news.title': 'News Center',
+                'product.tableTitle': 'Product Specifications',
+                'equipment.smeltingTitle': 'Special Smelting Line',
+                'equipment.smeltingText': 'We have various special smelting equipment including Vacuum Induction Melting (VIM), Protective Atmosphere Electroslag Remelting (ESR), and Vacuum Arc Remelting (VAR) furnaces, with complete ultra-clean smelting capabilities such as VIM, ESR, VAR, and duplex/triplex melting. We can precisely smelt Monel alloys (Monel 400, Monel K500, etc.) and other specialty alloys, ensuring high purity and stable performance of the raw materials.',
+                'equipment.forgingTitle': 'Forging Line',
+                'equipment.forgingText': 'Equipped with fast forging and radial forging machines, we produce high-quality forged bars, forgings, modules, rings, and more. Monel alloys, superalloys, and other specialty alloys can be precisely forged to meet the high standards of aerospace, nuclear power, and marine engineering applications.',
+                'equipment.pipeTitle': 'Precision Steel Tube Line',
+                'equipment.pipeText': 'Featuring hot extrusion and special alloy cold-rolled seamless tube lines, we manufacture precision seamless tubes ranging from OD 1mm to 610mm in Monel alloys, superalloys, corrosion-resistant alloys, and special stainless steels, covering the full specification range of Monel alloy tubes.',
+                'equipment.labTitle': 'Physical-Chemical Testing Center',
+                'equipment.labText': 'Equipped with advanced testing instruments such as direct-reading spectrometers, carbon-sulfur analyzers, universal testing machines, impact testers, and metallographic microscopes, we conduct comprehensive physical-chemical testing on Monel alloys and all products, ensuring full-process quality control and compliance.',
                 'contact.title': 'Contact Us',
-                'contact.addressLabel': '🏢 Address',
+                'contact.addressLabel': 'Address',
                 'contact.address': 'Longqiao Industrial Park, Fuling District, Chongqing (Special Alloy Industrial Base)',
-                'contact.phoneLabel': '📞 Phone',
-                'contact.phone': 'Tel: 023-68580000 / Sales: 023-68580111 / Technical: 023-68580222',
-                'contact.emailLabel': '📧 Email',
-                'contact.email': 'info@cqqlx.com / sales@cqqlx.com',
+                'contact.phoneLabel': 'Phone',
+                'contact.phone': 'Tel: +86 023 67002005 / Sales: +86 189 8389 4451',
+                'contact.emailLabel': 'Email',
+                'contact.email': 'sale@cqqlx.com',
                 'contact.namePlaceholder': 'Your Name *',
                 'contact.emailPlaceholder': 'Email Address *',
                 'contact.phonePlaceholder': 'Phone Number',
                 'contact.msgPlaceholder': 'Please enter your inquiry *',
                 'contact.submit': 'Submit',
-                'contact.feedback': '✅ Thank you for your message! We will reply shortly.',
+                'contact.feedback': 'Thank you for your message! We will reply shortly.',
                 'footer.companyDesc': 'A high-tech enterprise specializing in R&D and manufacturing of special metallurgical materials, covering superalloys, titanium alloys, ultra-high strength steels, special stainless steels, tool & die steels, and nuclear-grade steels.',
                 'footer.quickLinks': 'Quick Links',
                 'footer.productCat': 'Product Categories',
@@ -1052,431 +1515,107 @@
                 'footer.cat4': 'Tool & Die Steel',
                 'footer.addressShort': 'Longqiao Industrial Park, Fuling, Chongqing',
                 'footer.copyright': '© 2024 Chongqing Qianlixing Special Alloy Co., Ltd. All Rights Reserved.',
-                'product.viewDetail': 'View Details →',
-                'product.viewOutline': 'View Product Outline →',
+                'product.viewDetail': 'View Details',
+                'product.viewOutline': 'View Product Outline',
                 'product.clickHint': 'Click to view product specifications',
                 'product.noData': 'No product specification data available yet. Please stay tuned.',
                 'langSwitch': '中文',
-                'langLabel': '🌐 中文',
+                'langLabel': '中文',
             }
+        };
+
+        // 分类图标颜色映射
+        const categoryColors = {
+            'special_metallurgy': '#c41e2a',
+            'profile': '#1a6fb5',
+            'nuclear': '#e8781a',
+            'tool_steel': '#2d8c4a',
+            'pipe': '#6c3d9e',
+            'strip': '#d4880f',
+        };
+        // 分类首字映射（中文）
+        const categoryChars = {
+            'special_metallurgy': '冶',
+            'profile': '型',
+            'nuclear': '核',
+            'tool_steel': '模',
+            'pipe': '管',
+            'strip': '板',
         };
 
         // 产品数据的双语版本
         const productDataI18n = {
             zh: {
                 categories: [
-                    { id: 'special_metallurgy', name: '特种冶金产品', icon: '🔥', desc: '高温合金、钛合金、超高强结构钢、特种不锈钢',
-                        intro: '特种冶金产品采用真空感应熔炼、电渣重熔、真空自耗重熔等先进工艺，产品广泛应用于航空航天、核能、舰船、高端装备等领域。' },
-                    { id: 'profile', name: '型材产品', icon: '📏', desc: '结构钢、不锈钢',
-                        intro: '型材产品涵盖各类结构钢和不锈钢长材，可按国标、美标、欧标、日标等标准生产，满足汽车、铁路、能源、船舶等行业的多样化需求。' },
-                    { id: 'nuclear', name: '核电产品', icon: '☢️', desc: '核电产品',
-                        intro: '核电产品严格符合核安全Ⅰ、Ⅱ级要求，产品包括镍基合金、不锈钢、特殊钢以及配套焊接材料，覆盖板、管、棒、丝、锻件等形态，是国内核心的核电关键配套特种金属材料供应商之一。' },
-                    { id: 'tool_steel', name: '工模具钢产品', icon: '🔧', desc: '热作模具钢、冷作模具钢、塑料模具钢',
-                        intro: '工模具钢采用电炉真空脱气/电渣重熔、高温均质化/超细化处理等先进工艺，生产的模具钢系列化产品具有优良的化学成分配比、组织均匀、使用寿命长等特点，质量可与进口模具材料媲美。' },
-                    { id: 'pipe', name: '钢管产品', icon: '🔩', desc: '钢管产品',
-                        intro: '精密钢管产线始建于2008年，拥有钢管热挤压产线和特殊合金冷轧无缝钢管产线，可生产高温合金、耐蚀合金、特种不锈钢等精密无缝钢管。' },
-                    { id: 'strip', name: '板带产品', icon: '📄', desc: '板带产品',
-                        intro: '板带产线可生产各类特种合金热轧和冷轧板带材，产品广泛应用于航空航天、核电、石油化工、海洋工程等领域。' },
+                    { id: 'special_metallurgy', name: '特种冶金产品', desc: '高温合金、钛合金、超高强结构钢、特种不锈钢', intro: '特种冶金产品采用真空感应熔炼、电渣重熔、真空自耗重熔等先进工艺，产品广泛应用于航空航天、核能、舰船、高端装备等领域。' },
+                    { id: 'profile', name: '型材产品', desc: '结构钢、不锈钢', intro: '型材产品涵盖各类结构钢和不锈钢长材，可按国标、美标、欧标、日标等标准生产，满足汽车、铁路、能源、船舶等行业的多样化需求。' },
+                    { id: 'nuclear', name: '核电产品', desc: '核电产品', intro: '核电产品严格符合核安全Ⅰ、Ⅱ级要求，产品包括镍基合金、不锈钢、特殊钢以及配套焊接材料，覆盖板、管、棒、丝、锻件等形态，是国内核心的核电关键配套特种金属材料供应商之一。' },
+                    { id: 'tool_steel', name: '工模具钢产品', desc: '热作模具钢、冷作模具钢、塑料模具钢', intro: '工模具钢采用电炉真空脱气/电渣重熔、高温均质化/超细化处理等先进工艺，生产的模具钢系列化产品具有优良的化学成分配比、组织均匀、使用寿命长等特点，质量可与进口模具材料媲美。' },
+                    { id: 'pipe', name: '钢管产品', desc: '钢管产品', intro: '精密钢管产线始建于2008年，拥有钢管热挤压产线和特殊合金冷轧无缝钢管产线，可生产高温合金、耐蚀合金、特种不锈钢等精密无缝钢管。' },
+                    { id: 'strip', name: '板带产品', desc: '板带产品', intro: '板带产线可生产各类特种合金热轧和冷轧板带材，产品广泛应用于航空航天、核电、石油化工、海洋工程等领域。' },
                 ],
                 subCategories: {
                     special_metallurgy: [
-                        { id: 'superalloy', name: '高温合金', parentName: '特种冶金产品', parentId: 'special_metallurgy',
-                            intro: '高温合金是以铁、镍、钴为基，能在600℃以上的高温及一定应力作用下长期工作的一类金属材料。具有优异的高温强度、抗氧化和抗热腐蚀性能，主要应用于航空、航天、舰船、核电、汽车、石油、化工等领域。',
-                            table: { headers: ['序号', '钢类', '代表钢种', '产品规格', '应用领域'], rows: [
-                                    ['1', '铁基高温合金', 'GH1131、GH2132、GH2696、GH2907',
-                                        '棒材：Φ12-Φ850mm；管材：外径4-76mm，壁厚0.2-7mm；扁钢、方钢、饼件、环件及自由锻件', '航空、航天、舰船、燃气轮机、汽车等'],
-                                    ['2', '镍基高温合金', 'GH4133B、GH4169、GH4698、GH4720Li、GH4738',
-                                        '棒材：Φ80-Φ500mm；扁钢：厚≥100mm，宽≤1200mm；饼环：外径Φ400-Φ2200mm；轧棒：Φ14-Φ85mm',
-                                        '航空、航天、舰船、燃气轮机、汽车等'],
-                                    ['3', '钴基高温合金', 'GH5188、GH6783', '棒材：Φ80-Φ500mm；扁钢：厚≥100mm，宽≤1200mm',
-                                        '航空、航天、舰船、燃气轮机、汽车等'],
-                                    ['4', '铸造高温合金', 'K403', '按协议', '制造业模具'],
-                                ] },
-                        },
-                        { id: 'titanium', name: '钛合金', parentName: '特种冶金产品', parentId: 'special_metallurgy',
-                            intro: '钛合金具有密度低、比强度高、耐腐蚀性好等优良特性，在航空航天、海洋工程、化工、医疗等领域有广泛应用。公司可生产纯钛及各类钛合金的棒材、板材、锻件、丝材等产品。',
-                            table: { headers: ['序号', '钢类', '代表钢种', '产品规格', '应用领域'], rows: [
-                                    ['1', '纯钛', 'TA1、TA2、TA3、TA4（GR1~GR4）', '棒材：圆14-130mm', '化工设备、海洋工程、医疗器械'],
-                                    ['2', 'α+β型钛合金', 'TC4（GR5/Ti-6Al-4V）、TC4ELI、TC6、TC11、TC17、TC18',
-                                        '棒材：圆90-500mm；扁钢：厚≥100mm，宽≤1200mm；饼环：外径Φ400-Φ2000mm；轧棒：圆10-130mm',
-                                        '航空发动机、飞机结构件、舰船部件'],
-                                    ['3', '近α型钛合金', 'TA15（BT20）、TA18、TA19（Ti6242）',
-                                        '棒材：圆90-500mm；扁钢：厚≥100mm，宽≤1200mm', '航空发动机压气机部件、高温结构件'],
-                                    ['4', 'β型钛合金', 'TB2、TB6', '棒材：圆90-500mm；丝材：圆0.5-7mm', '航空紧固件、弹簧、弹性元件'],
-                                ] },
-                        },
-                        { id: 'ultra_high_steel', name: '超高强结构钢', parentName: '特种冶金产品', parentId: 'special_metallurgy',
-                            intro: '超高强度钢是指室温抗拉强度超过1380MPa的结构钢，具有高比强度、良好的塑性和韧性。主要应用于火箭发动机外壳、飞机起落架、防弹钢板、承力结构件等领域。',
-                            table: { headers: ['序号', '钢类', '代表钢种', '产品规格', '应用领域'], rows: [
-                                    ['1', '低合金超高强钢', '300M、40CrNi2MoA、4340H、30CrMnSiNi2A',
-                                        '≤Φ540mm（300M）；≤Φ760mm（40CrNi2MoA）', '飞机起落架、火箭壳体、承力结构件'],
-                                    ['2', '中合金超高强钢', '30Cr3SiNiMoVA、32Cr3MoVA、45CrNiMo1VA', '≤Φ400mm',
-                                    '航空结构件、导弹部件'],
-                                    ['3', '高合金超高强钢', '16Ni10Co14Cr2MoA、23Co13Ni11Cr3Mo（AF1311）、TM210A', '≤Φ400mm',
-                                        '航天器结构件、卫星支架'],
-                                ] },
-                        },
-                        { id: 'special_stainless', name: '特种不锈钢', parentName: '特种冶金产品', parentId: 'special_metallurgy',
-                            intro: '特种不锈钢主要应用于航空航天、能源电站、海洋工程、船舶、重载机车等领域。可按中国、美国、法国、德国、英国、日本等国标准组织生产。',
-                            table: { headers: ['序号', '钢类', '代表钢种', '产品规格', '应用领域'], rows: [
-                                    ['1', '奥氏体不锈钢', '304、304L、316L、321',
-                                        '轧材：圆14-160mm；锻材：圆90-260mm；板材：厚12-130mm', '航空航天部件、化工设备、流体设备'],
-                                    ['2', '马氏体不锈钢', '20~40Cr13、14Cr17Ni2、9Cr18（440C）',
-                                    '轧材：圆14-160mm；锻材：圆90-200mm', '叶片、轴类、刃具、医疗器械、弹簧'],
-                                    ['3', '沉淀硬化不锈钢', '05Cr17Ni4Cu4Nb（17-4PH）、05Cr15Ni5Cu4Nb（15-5PH）、04Cr13Ni8Mo2Al（PH13-8Mo）',
-                                        '轧材：圆14-160mm；锻材：圆90-200mm', '轴类、弹簧、高强度容器、航空航天结构件'],
-                                ] },
-                        },
+                        { id: 'superalloy', name: '高温合金', parentName: '特种冶金产品', parentId: 'special_metallurgy', intro: '高温合金是以铁、镍、钴为基，能在600℃以上的高温及一定应力作用下长期工作的一类金属材料。具有优异的高温强度、抗氧化和抗热腐蚀性能，主要应用于航空、航天、舰船、核电、汽车、石油、化工等领域。', table: { headers: ['序号', '钢类', '代表钢种', '产品规格', '应用领域'], rows: [['1', '铁基高温合金', 'GH1131、GH2132、GH2696、GH2907、GH2036', '棒材：Φ12-Φ850mm；管材：外径4-76mm，壁厚0.2-7mm；扁钢、方钢、饼件、环件及自由锻件', '航空、航天、舰船、燃气轮机、汽车等'], ['2', '镍基高温合金', 'GH4133B、GH4169、GH4698、GH4720Li、GH4738、GH4145、GH4033、GH4037、GH4049', '棒材：Φ80-Φ500mm；扁钢：厚≥100mm，宽≤1200mm；饼环：外径Φ400-Φ2200mm；轧棒：Φ14-Φ85mm', '航空、航天、舰船、燃气轮机、汽车等'], ['3', '钴基高温合金', 'GH5188、GH6783、GH605', '棒材：Φ80-Φ500mm；扁钢：厚≥100mm，宽≤1200mm', '航空、航天、舰船、燃气轮机、汽车等'], ['4', '铸造高温合金', 'K403、K417、K418', '按协议', '制造业模具、涡轮叶片'], ['5', '粉末高温合金', 'FGH4095、FGH4096', '棒材：Φ80-Φ400mm；饼件：按协议', '航空发动机涡轮盘']] } },
+                        { id: 'titanium', name: '钛合金', parentName: '特种冶金产品', parentId: 'special_metallurgy', intro: '钛合金具有密度低、比强度高、耐腐蚀性好等优良特性，在航空航天、海洋工程、化工、医疗等领域有广泛应用。公司可生产纯钛及各类钛合金的棒材、板材、锻件、丝材等产品。', table: { headers: ['序号', '钢类', '代表钢种', '产品规格', '应用领域'], rows: [['1', '纯钛', 'TA1、TA2、TA3、TA4（GR1~GR4）', '棒材：圆14-130mm', '化工设备、海洋工程、医疗器械'], ['2', 'α+β型钛合金', 'TC4（GR5/Ti-6Al-4V）、TC4ELI、TC6、TC11、TC17、TC18、TC21', '棒材：圆90-500mm；扁钢：厚≥100mm，宽≤1200mm；饼环：外径Φ400-Φ2000mm；轧棒：圆10-130mm', '航空发动机、飞机结构件、舰船部件'], ['3', '近α型钛合金', 'TA15（BT20）、TA18、TA19（Ti6242）、TC1、TC2', '棒材：圆90-500mm；扁钢：厚≥100mm，宽≤1200mm', '航空发动机压气机部件、高温结构件'], ['4', 'β型钛合金', 'TB2、TB6、TB8', '棒材：圆90-500mm；丝材：圆0.5-7mm', '航空紧固件、弹簧、弹性元件'], ['5', '钛铝金属间化合物', 'TiAl基合金', '棒材及锻件：按协议', '航空发动机低压涡轮叶片']] } },
+                        { id: 'ultra_high_steel', name: '超高强结构钢', parentName: '特种冶金产品', parentId: 'special_metallurgy', intro: '超高强度钢是指室温抗拉强度超过1380MPa的结构钢，具有高比强度、良好的塑性和韧性。主要应用于火箭发动机外壳、飞机起落架、防弹钢板、承力结构件等领域。', table: { headers: ['序号', '钢类', '代表钢种', '产品规格', '应用领域'], rows: [['1', '低合金超高强钢', '300M、40CrNi2MoA、4340H、30CrMnSiNi2A、D6AC', '≤Φ540mm（300M）；≤Φ760mm（40CrNi2MoA）', '飞机起落架、火箭壳体、承力结构件'], ['2', '中合金超高强钢', '30Cr3SiNiMoVA、32Cr3MoVA、45CrNiMo1VA', '≤Φ400mm', '航空结构件、导弹部件'], ['3', '高合金超高强钢', '16Ni10Co14Cr2MoA、23Co13Ni11Cr3Mo（AF1311）、TM210A、AerMet100', '≤Φ400mm', '航天器结构件、卫星支架、起落架'], ['4', '马氏体时效钢', '18Ni(250)、18Ni(300)、18Ni(350)', '≤Φ350mm', '航天器关键结构件、精密模具']] } },
+                        { id: 'special_stainless', name: '特种不锈钢', parentName: '特种冶金产品', parentId: 'special_metallurgy', intro: '特种不锈钢主要应用于航空航天、能源电站、海洋工程、船舶、重载机车等领域。可按中国、美国、法国、德国、英国、日本等国标准组织生产。', table: { headers: ['序号', '钢类', '代表钢种', '产品规格', '应用领域'], rows: [['1', '奥氏体不锈钢', '304、304L、316L、321、904L、254SMO', '轧材：圆14-160mm；锻材：圆90-260mm；板材：厚12-130mm', '航空航天部件、化工设备、流体设备'], ['2', '马氏体不锈钢', '20~40Cr13、14Cr17Ni2、9Cr18（440C）、1Cr17Ni2', '轧材：圆14-160mm；锻材：圆90-200mm', '叶片、轴类、刃具、医疗器械、弹簧'], ['3', '沉淀硬化不锈钢', '05Cr17Ni4Cu4Nb（17-4PH）、05Cr15Ni5Cu4Nb（15-5PH）、04Cr13Ni8Mo2Al（PH13-8Mo）、07Cr17Ni7Al（17-7PH）', '轧材：圆14-160mm；锻材：圆90-200mm', '轴类、弹簧、高强度容器、航空航天结构件'], ['4', '双相不锈钢', '2205、2507、S32750', '轧材：圆14-160mm；板材：厚6-80mm', '海洋工程、石油化工、船舶']] } },
                     ],
                     profile: [
-                        { id: 'structural_steel', name: '结构钢', parentName: '型材产品', parentId: 'profile',
-                            intro: '公司拥有国际先进水平的装备和检测能力，产品包括汽车用钢、齿轮钢、非调质钢、易切削钢、铁路用钢、船舶用钢、电站用钢、油田用钢、弹簧钢、轴承钢等专业用钢，各类结构钢达600多个牌号品种。',
-                            table: { headers: ['序号', '钢类', '代表钢种', '产品规格', '应用领域'], rows: [
-                                    ['1', '齿轮用钢', '16-28MnCr5、SAE8617H-8627H、18CrNiMo7-6、20CrMnTiH',
-                                        '轧材：圆28-130mm；锻材：圆90-700mm', '轿车变速箱齿轮、卡车齿轮、高铁风电大型齿轮'],
-                                    ['2', '曲轴连杆用钢', '34MnV、49MnVS3、38MnVS6', '轧材：圆20-110mm；锻材：圆90-700mm',
-                                        '曲轴、连杆、转向节、前轴等'],
-                                    ['3', '电站用钢', '20Cr1Mo1V1(A)、15CrMoG、12Cr1MoVG', '轧材：圆14-190mm；锻材：圆90-700mm',
-                                        '电站零部件、紧固件、高压锅炉管坯'],
-                                    ['4', '轴承钢', 'GCr15、GCr15SiMn、9Cr18Mo', '轧材：圆14-120mm；锻材：圆100-600mm',
-                                        '风电轴承、铁路轴承、不锈轴承'],
-                                ] },
-                        },
-                        { id: 'stainless_steel', name: '不锈钢', parentName: '型材产品', parentId: 'profile',
-                            intro: '公司研发的不锈钢长材钢类有奥氏体不锈钢、铁素体不锈钢、双相不锈钢、马氏体不锈钢和沉淀硬化不锈钢，品种有银亮材、冷拉棒、热轧棒、锻材、盘圆、冷拉丝等。',
-                            table: { headers: ['序号', '钢类', '代表钢种', '产品规格', '应用领域'], rows: [
-                                    ['1', '铁素体型', '10Cr17', '轧材：圆14-130mm', '化工设备'],
-                                    ['2', '奥氏体型', '06Cr19Ni10、022Cr19Ni10、06Cr19Ni10N、022Cr17Ni12Mo2、06Cr25Ni20、06Cr18Ni10Ti',
-                                        '轧材：圆14-160mm；锻材：圆90-260mm；板材：厚12-130mm', '机械、化工、流体设备等'],
-                                    ['3', '马氏体型', '20~40Cr13、14Cr17Ni2、P91、P92',
-                                    '轧材：圆14-160mm；锻材：圆90-800mm；板材：厚12-130mm', '叶片、轴类、刃具、医疗器械、电站用钢'],
-                                    ['4', '沉淀硬化型', '05Cr17Ni4Cu4Nb、07Cr17Ni7Al', '轧材：圆14-160mm；锻材：圆90-200mm',
-                                        '轴类、弹簧、高强度容器等'],
-                                ] },
-                        },
+                        { id: 'structural_steel', name: '结构钢', parentName: '型材产品', parentId: 'profile', intro: '公司拥有国际先进水平的装备和检测能力，产品包括汽车用钢、齿轮钢、非调质钢、易切削钢、铁路用钢、船舶用钢、电站用钢、油田用钢、弹簧钢、轴承钢等专业用钢，各类结构钢达600多个牌号品种。', table: { headers: ['序号', '钢类', '代表钢种', '产品规格', '应用领域'], rows: [['1', '齿轮用钢', '16-28MnCr5、SAE8617H-8627H、18CrNiMo7-6、20CrMnTiH、20CrMoH', '轧材：圆28-130mm；锻材：圆90-700mm', '轿车变速箱齿轮、卡车齿轮、高铁风电大型齿轮'], ['2', '曲轴连杆用钢', '34MnV、49MnVS3、38MnVS6、C70S6', '轧材：圆20-110mm；锻材：圆90-700mm', '曲轴、连杆、转向节、前轴等'], ['3', '电站用钢', '20Cr1Mo1V1(A)、15CrMoG、12Cr1MoVG、25Cr2MoVA', '轧材：圆14-190mm；锻材：圆90-700mm', '电站零部件、紧固件、高压锅炉管坯'], ['4', '轴承钢', 'GCr15、GCr15SiMn、9Cr18Mo、G20CrNi2Mo', '轧材：圆14-120mm；锻材：圆100-600mm', '风电轴承、铁路轴承、不锈轴承'], ['5', '弹簧钢', '60Si2Mn、55CrSi、50CrVA', '轧材：圆10-80mm', '汽车悬挂弹簧、铁路弹簧']] } },
+                        { id: 'stainless_steel', name: '不锈钢', parentName: '型材产品', parentId: 'profile', intro: '公司研发的不锈钢长材钢类有奥氏体不锈钢、铁素体不锈钢、双相不锈钢、马氏体不锈钢和沉淀硬化不锈钢，品种有银亮材、冷拉棒、热轧棒、锻材、盘圆、冷拉丝等。', table: { headers: ['序号', '钢类', '代表钢种', '产品规格', '应用领域'], rows: [['1', '铁素体型', '10Cr17、022Cr18Ti', '轧材：圆14-130mm', '化工设备'], ['2', '奥氏体型', '06Cr19Ni10、022Cr19Ni10、06Cr19Ni10N、022Cr17Ni12Mo2、06Cr25Ni20、06Cr18Ni10Ti', '轧材：圆14-160mm；锻材：圆90-260mm；板材：厚12-130mm', '机械、化工、流体设备等'], ['3', '马氏体型', '20~40Cr13、14Cr17Ni2、P91、P92', '轧材：圆14-160mm；锻材：圆90-800mm；板材：厚12-130mm', '叶片、轴类、刃具、医疗器械、电站用钢'], ['4', '沉淀硬化型', '05Cr17Ni4Cu4Nb、07Cr17Ni7Al', '轧材：圆14-160mm；锻材：圆90-200mm', '轴类、弹簧、高强度容器等'], ['5', '双相不锈钢', '022Cr22Ni5Mo3N（2205）、022Cr25Ni7Mo4N（2507）', '轧材：圆14-160mm；锻材：圆90-400mm', '海洋工程、石油化工']] } },
                     ],
                     nuclear: [
-                        { id: 'nuclear_products', name: '核电产品', parentName: '核电产品', parentId: 'nuclear',
-                            intro: '公司具备电炉、真空感应炉、快锻和径锻机、热挤压机等关键设备的核电用材产线。产品包括镍基合金、不锈钢、特殊钢以及配套焊接材料，覆盖板、管、棒、丝、锻件等形态。',
-                            table: { headers: ['序号', '钢类', '代表钢种', '产品规格', '应用领域'], rows: [
-                                    ['1', '高温合金（核电级）', 'NC30Fe、UNS N06690、NS3105、GH4169',
-                                        '钢管、热轧中厚板、锻造棒材、冷轧带材、丝材、冷拉棒材', '核电蒸汽发生器U形传热管、堆内构件'],
-                                    ['2', '不锈钢（核电级）', 'Z2CND17-12、Z2CND18-12N、316L、0Cr18Ni10Ti、S32101',
-                                        '热轧中厚板、冷轧卷、棒材', '支承板、安全壳回流槽、过滤器、燃料元件'],
-                                    ['3', '碳钢及低合金钢（核电级）', 'P265GH、P295GH、P355GH、20MnD5、SA-738Gr.B',
-                                        '钢板：6-130×1500-4700mm；锻件', '核岛承压主设备、安全壳及配套装备'],
-                                ] },
-                        },
+                        { id: 'nuclear_products', name: '核电产品', parentName: '核电产品', parentId: 'nuclear', intro: '公司具备电炉、真空感应炉、快锻和径锻机、热挤压机等关键设备的核电用材产线。产品包括镍基合金、不锈钢、特殊钢以及配套焊接材料，覆盖板、管、棒、丝、锻件等形态。', table: { headers: ['序号', '钢类', '代表钢种', '产品规格', '应用领域'], rows: [['1', '高温合金（核电级）', 'NC30Fe、UNS N06690、NS3105、GH4169、GH4145', '钢管、热轧中厚板、锻造棒材、冷轧带材、丝材、冷拉棒材', '核电蒸汽发生器U形传热管、堆内构件'], ['2', '不锈钢（核电级）', 'Z2CND17-12、Z2CND18-12N、316L、0Cr18Ni10Ti、S32101、304LN', '热轧中厚板、冷轧卷、棒材', '支承板、安全壳回流槽、过滤器、燃料元件'], ['3', '碳钢及低合金钢（核电级）', 'P265GH、P295GH、P355GH、20MnD5、SA-738Gr.B、16MnD5', '钢板：6-130×1500-4700mm；锻件', '核岛承压主设备、安全壳及配套装备'], ['4', '镍基合金焊材', 'ERNiCr-3、ERNiCrFe-7、ERNiCrMo-3', '焊丝：Φ0.8-Φ4.0mm', '核电焊接结构件']] } },
                     ],
                     tool_steel: [
-                        { id: 'hot_work', name: '热作模具钢', parentName: '工模具钢产品', parentId: 'tool_steel',
-                            intro: '热作模具钢采用电炉真空脱气/电渣重熔、高温均质化/超细化处理、组织预硬化处理等先进制造装备和工艺，具有优良的化学成分配比、抗热疲劳性能强、使用寿命长等特点。',
-                            table: { headers: ['序号', '钢类', '代表钢种', '产品规格', '应用领域'], rows: [
-                                    ['1', '通用热作模具钢', '5CrMnMo、5CrNiMo、5CrNiMoV',
-                                        '圆：Φ14-750mm；方/扁：厚100-650mm，宽100-1300mm', '热锻模、热挤压模'],
-                                    ['2', '优质热作模具钢', 'SWGH13（4Cr5MoSiV1/H13）、SWPH11（4Cr5MoSiV/H11）',
-                                        '圆：Φ14-800mm；方/扁：厚100-600mm，宽100-1000mm', '铝镁锌合金挤压模、压铸模'],
-                                    ['3', '高性能热作模具钢', 'SWBPH1（4Cr5Mo2SiV/DieVar）、SWHCM、3Cr2W8V',
-                                        '圆：Φ14-650mm；方/扁：厚100-600mm，宽100-800mm', '高寿命压铸模、热挤压模'],
-                                ] },
-                        },
-                        { id: 'cold_work', name: '冷作模具钢', parentName: '工模具钢产品', parentId: 'tool_steel',
-                            intro: '冷作模具钢采用电炉真空脱气/电渣重熔、大钢锭和大锻造比以及多向锻造生产等先进制造装备和工艺，基体组织均匀分布，硬度高、韧性好、耐磨性强、使用寿命长。',
-                            table: { headers: ['序号', '钢类', '代表钢种', '产品规格', '应用领域'], rows: [
-                                    ['1', '普通冷作模具钢', 'Cr12、Cr12MoV、Cr12Mo1V1（D2）',
-                                        '圆：Φ14-400mm；方/扁：厚30-300mm，宽100-600mm', '冲裁模、冷挤压模、拉深模'],
-                                    ['2', '高耐磨冷作模具钢', 'SKD11、DC53', '圆：Φ14-350mm；方/扁：厚30-300mm，宽100-600mm',
-                                        '高精度冲模、冷轧辊、量规'],
-                                    ['3', '高韧性冷作模具钢', '7CrSiMnMoV、9CrWMn', '圆：Φ14-300mm；方/扁：厚30-250mm，宽100-500mm',
-                                        '冷冲模、冷挤模、剪切刀片'],
-                                ] },
-                        },
-                        { id: 'plastic_mold', name: '塑料模具钢', parentName: '工模具钢产品', parentId: 'tool_steel',
-                            intro: '塑料模具钢采用先进制造装备和工艺，具有优良的抛光性能、加工性能和导热性能，品质可与进口模具材料媲美。',
-                            table: { headers: ['序号', '钢类', '代表钢种', '产品规格', '应用领域'], rows: [
-                                    ['1', '预硬型塑料模具钢', 'P20（3Cr2Mo）、718（3Cr2NiMo）、SW718H-P',
-                                        '圆：Φ14-600mm；方/扁：厚30-500mm，宽100-1200mm', '家电外壳模具、汽车内饰件模具'],
-                                    ['2', '耐蚀型塑料模具钢', 'S136（4Cr13）、4Cr13H', '圆：Φ14-400mm；方/扁：厚30-400mm，宽100-800mm',
-                                        'PVC等腐蚀性塑料模具、医疗器械模具'],
-                                    ['3', '镜面塑料模具钢', 'NAK80、10Ni3MnCuAl', '圆：Φ14-400mm；方/扁：厚30-400mm，宽100-800mm',
-                                        '高镜面要求模具、光学镜片模具'],
-                                ] },
-                        },
+                        { id: 'hot_work', name: '热作模具钢', parentName: '工模具钢产品', parentId: 'tool_steel', intro: '热作模具钢采用电炉真空脱气/电渣重熔、高温均质化/超细化处理、组织预硬化处理等先进制造装备和工艺，具有优良的化学成分配比、抗热疲劳性能强、使用寿命长等特点。', table: { headers: ['序号', '钢类', '代表钢种', '产品规格', '应用领域'], rows: [['1', '通用热作模具钢', '5CrMnMo、5CrNiMo、5CrNiMoV', '圆：Φ14-750mm；方/扁：厚100-650mm，宽100-1300mm', '热锻模、热挤压模'], ['2', '优质热作模具钢', 'SWGH13（4Cr5MoSiV1/H13）、SWPH11（4Cr5MoSiV/H11）', '圆：Φ14-800mm；方/扁：厚100-600mm，宽100-1000mm', '铝镁锌合金挤压模、压铸模'], ['3', '高性能热作模具钢', 'SWBPH1（4Cr5Mo2SiV/DieVar）、SWHCM、3Cr2W8V、4Cr5MoWVSi', '圆：Φ14-650mm；方/扁：厚100-600mm，宽100-800mm', '高寿命压铸模、热挤压模']] } },
+                        { id: 'cold_work', name: '冷作模具钢', parentName: '工模具钢产品', parentId: 'tool_steel', intro: '冷作模具钢采用电炉真空脱气/电渣重熔、大钢锭和大锻造比以及多向锻造生产等先进制造装备和工艺，基体组织均匀分布，硬度高、韧性好、耐磨性强、使用寿命长。', table: { headers: ['序号', '钢类', '代表钢种', '产品规格', '应用领域'], rows: [['1', '普通冷作模具钢', 'Cr12、Cr12MoV、Cr12Mo1V1（D2）', '圆：Φ14-400mm；方/扁：厚30-300mm，宽100-600mm', '冲裁模、冷挤压模、拉深模'], ['2', '高耐磨冷作模具钢', 'SKD11、DC53、Cr8Mo2SiV', '圆：Φ14-350mm；方/扁：厚30-300mm，宽100-600mm', '高精度冲模、冷轧辊、量规'], ['3', '高韧性冷作模具钢', '7CrSiMnMoV、9CrWMn', '圆：Φ14-300mm；方/扁：厚30-250mm，宽100-500mm', '冷冲模、冷挤模、剪切刀片']] } },
+                        { id: 'plastic_mold', name: '塑料模具钢', parentName: '工模具钢产品', parentId: 'tool_steel', intro: '塑料模具钢采用先进制造装备和工艺，具有优良的抛光性能、加工性能和导热性能，品质可与进口模具材料媲美。', table: { headers: ['序号', '钢类', '代表钢种', '产品规格', '应用领域'], rows: [['1', '预硬型塑料模具钢', 'P20（3Cr2Mo）、718（3Cr2NiMo）、SW718H-P', '圆：Φ14-600mm；方/扁：厚30-500mm，宽100-1200mm', '家电外壳模具、汽车内饰件模具'], ['2', '耐蚀型塑料模具钢', 'S136（4Cr13）、4Cr13H、M333', '圆：Φ14-400mm；方/扁：厚30-400mm，宽100-800mm', 'PVC等腐蚀性塑料模具、医疗器械模具'], ['3', '镜面塑料模具钢', 'NAK80、10Ni3MnCuAl', '圆：Φ14-400mm；方/扁：厚30-400mm，宽100-800mm', '高镜面要求模具、光学镜片模具']] } },
                     ],
                     pipe: [
-                        { id: 'pipe_products', name: '钢管产品', parentName: '钢管产品', parentId: 'pipe',
-                            intro: '精密钢管产线始建于2008年，拥有钢管热挤压产线和特殊合金冷轧无缝钢管产线，可生产高温合金、耐蚀合金、超奥不锈钢、双相钢、特种不锈钢钢管。',
-                            table: { headers: ['序号', '钢类', '代表钢种', '产品规格', '应用领域'], rows: [
-                                    ['1', '高温合金管', 'GH3600、GH1140、GH4169、GH3039、GH3030',
-                                    '外径：1-219mm；壁厚：0.1-25mm', '航空发动机管路、舰船冷却器管、高温炉管'],
-                                    ['2', '耐蚀合金管', 'BG2532、BG2250、N06600、N06625、N06690、N08810、N08825、N10276',
-                                        '外径：6-508mm；壁厚：0.3-35mm', '油气田油井管、核电换热器管、石油炼化管线'],
-                                    ['3', '特种不锈钢管', '316LMod、2RE69、304、316、321等300系列',
-                                    '外径：6-610mm；壁厚：1-60mm', '核电项目、石油化工、流体输送'],
-                                ] },
-                        },
+                        { id: 'pipe_products', name: '钢管产品', parentName: '钢管产品', parentId: 'pipe', intro: '精密钢管产线始建于2008年，拥有钢管热挤压产线和特殊合金冷轧无缝钢管产线，可生产高温合金、耐蚀合金、超奥不锈钢、双相钢、特种不锈钢钢管。', table: { headers: ['序号', '钢类', '代表钢种', '产品规格', '应用领域'], rows: [['1', '高温合金管', 'GH3600、GH1140、GH4169、GH3039、GH3030、GH3044', '外径：1-219mm；壁厚：0.1-25mm', '航空发动机管路、舰船冷却器管、高温炉管'], ['2', '耐蚀合金管', 'BG2532、BG2250、N06600、N06625、N06690、N08810、N08825、N10276、N04400', '外径：6-508mm；壁厚：0.3-35mm', '油气田油井管、核电换热器管、石油炼化管线'], ['3', '特种不锈钢管', '316LMod、2RE69、304、316、321等300系列、2205、2507', '外径：6-610mm；壁厚：1-60mm', '核电项目、石油化工、流体输送'], ['4', '精密仪表管', 'GH4169、316L、Monel400', '外径：1-25mm；壁厚：0.1-3mm', '精密仪表、传感器'], ['5', '蒙乃尔合金管', 'Monel 400（N04400）、Monel K500（N05500）', '外径：1-508mm；壁厚：0.1-35mm', '海洋工程耐腐蚀管路、化工换热器/反应釜管线、油气田井下管柱、船舶动力系统、盐化工设备']] } },
                     ],
                     strip: [
-                        { id: 'strip_products', name: '板带产品', parentName: '板带产品', parentId: 'strip',
-                            intro: '板带产线可生产各类特种合金热轧和冷轧板带材，产品广泛应用于航空航天、核电、石油化工、海洋工程、压力容器等领域。',
-                            table: { headers: ['序号', '钢类', '代表钢种', '产品规格', '应用领域'], rows: [
-                                    ['1', '高温合金板带', 'GH4169、GH3030、GH3039、GH3044、GH3128',
-                                        '厚度：0.3-20mm；宽度：≤1500mm', '航空发动机热端部件、燃气轮机部件'],
-                                    ['2', '特种不锈钢板带', '304、316L、321、310S、904L、S31254、2205',
-                                        '厚度：0.3-130mm；宽度：≤2000mm', '核电设备、石油化工容器、海洋工程结构'],
-                                    ['3', '结构钢板带', 'Q235B、Q345B、Q345C、S355JR、Q690、A572Gr50',
-                                        '厚度：4-250mm；宽度：1500-4700mm', '船舶制造、桥梁建设、工程机械'],
-                                ] },
-                        },
+                        { id: 'strip_products', name: '板带产品', parentName: '板带产品', parentId: 'strip', intro: '板带产线可生产各类特种合金热轧和冷轧板带材，产品广泛应用于航空航天、核电、石油化工、海洋工程、压力容器等领域。', table: { headers: ['序号', '钢类', '代表钢种', '产品规格', '应用领域'], rows: [['1', '高温合金板带', 'GH4169、GH3030、GH3039、GH3044、GH3128、GH4145', '厚度：0.3-20mm；宽度：≤1500mm', '航空发动机热端部件、燃气轮机部件'], ['2', '特种不锈钢板带', '304、316L、321、310S、904L、S31254、2205、2507', '厚度：0.3-130mm；宽度：≤2000mm', '核电设备、石油化工容器、海洋工程结构'], ['3', '结构钢板带', 'Q235B、Q345B、Q345C、S355JR、Q690、A572Gr50、Q890', '厚度：4-250mm；宽度：1500-4700mm', '船舶制造、桥梁建设、工程机械'], ['4', '耐蚀合金板带', 'N06625、N08825、C276', '厚度：0.5-60mm；宽度：≤2000mm', '化工设备、烟气脱硫、海洋平台']] } },
                     ],
                 },
-                // news: [
-                //     { title: '公司与东方电气签署战略合作协议', date: '2024-12-15',
-                //         summary: '重庆千里行与东方电气集团签署战略合作框架协议，双方将在核电用钢领域展开深度合作。', img: '' },
-                //     { title: '千里行高温合金产线全面投产', date: '2024-11-08',
-                //         summary: '新建成的高温合金产线正式投产，年产能提升至8000吨，产品性能达到国际先进水平。', img: '' },
-                //     { title: '公司通过AS9100航空航天质量管理体系认证', date: '2024-10-22',
-                //         summary: '经过严格审核，公司正式通过AS9100航空航天质量管理体系认证，标志着公司质量管理迈上新台阶。', img: '' },
-                // ],
             },
             en: {
                 categories: [
-                    { id: 'special_metallurgy', name: 'Special Metallurgy', icon: '🔥', desc: 'Superalloys, Titanium Alloys, Ultra-High Strength Steels, Special Stainless Steels',
-                        intro: 'Special metallurgy products are manufactured using advanced processes such as VIM, ESR, and VAR. They are widely used in aerospace, nuclear energy, marine, and high-end equipment sectors.' },
-                    { id: 'profile', name: 'Profile Products', icon: '📏', desc: 'Structural Steels, Stainless Steels',
-                        intro: 'Profile products cover a wide range of structural and stainless steel long products, produced to GB, ASTM, EN, and JIS standards for automotive, railway, energy, and marine industries.' },
-                    { id: 'nuclear', name: 'Nuclear Products', icon: '☢️', desc: 'Nuclear-Grade Products',
-                        intro: 'Nuclear products strictly comply with nuclear safety Class I & II requirements, including nickel-based alloys, stainless steels, special steels, and welding consumables in plate, tube, bar, wire, and forging forms.' },
-                    { id: 'tool_steel', name: 'Tool & Die Steel', icon: '🔧', desc: 'Hot Work, Cold Work, Plastic Mold Steels',
-                        intro: 'Tool & die steels are produced using EAF vacuum degassing/ESR and high-temperature homogenization processes, delivering excellent chemical composition, uniform microstructure, and long service life.' },
-                    { id: 'pipe', name: 'Steel Tube Products', icon: '🔩', desc: 'Steel Tube Products',
-                        intro: 'The precision steel tube line was established in 2008, featuring hot extrusion and special alloy cold-rolled seamless tube lines for superalloys, corrosion-resistant alloys, and special stainless steel tubes.' },
-                    { id: 'strip', name: 'Plate & Strip Products', icon: '📄', desc: 'Plate & Strip Products',
-                        intro: 'The plate & strip line produces hot-rolled and cold-rolled special alloy plates and strips for aerospace, nuclear, petrochemical, and marine engineering applications.' },
+                    { id: 'special_metallurgy', name: 'Special Metallurgy', desc: 'Superalloys, Titanium Alloys, Ultra-High Strength Steels, Special Stainless Steels', intro: 'Special metallurgy products are manufactured using advanced processes such as VIM, ESR, and VAR. They are widely used in aerospace, nuclear energy, marine, and high-end equipment sectors.' },
+                    { id: 'profile', name: 'Profile Products', desc: 'Structural Steels, Stainless Steels', intro: 'Profile products cover a wide range of structural and stainless steel long products, produced to GB, ASTM, EN, and JIS standards for automotive, railway, energy, and marine industries.' },
+                    { id: 'nuclear', name: 'Nuclear Products', desc: 'Nuclear-Grade Products', intro: 'Nuclear products strictly comply with nuclear safety Class I & II requirements, including nickel-based alloys, stainless steels, special steels, and welding consumables in plate, tube, bar, wire, and forging forms.' },
+                    { id: 'tool_steel', name: 'Tool & Die Steel', desc: 'Hot Work, Cold Work, Plastic Mold Steels', intro: 'Tool & die steels are produced using EAF vacuum degassing/ESR and high-temperature homogenization processes, delivering excellent chemical composition, uniform microstructure, and long service life.' },
+                    { id: 'pipe', name: 'Steel Tube Products', desc: 'Steel Tube Products', intro: 'The precision steel tube line was established in 2008, featuring hot extrusion and special alloy cold-rolled seamless tube lines for superalloys, corrosion-resistant alloys, and special stainless steel tubes.' },
+                    { id: 'strip', name: 'Plate & Strip Products', desc: 'Plate & Strip Products', intro: 'The plate & strip line produces hot-rolled and cold-rolled special alloy plates and strips for aerospace, nuclear, petrochemical, and marine engineering applications.' },
                 ],
                 subCategories: {
                     special_metallurgy: [
-                        { id: 'superalloy', name: 'Superalloys', parentName: 'Special Metallurgy', parentId: 'special_metallurgy',
-                            intro: 'Superalloys are iron, nickel, or cobalt-based alloys capable of long-term service above 600°C under stress. They offer excellent high-temperature strength, oxidation resistance, and hot corrosion resistance for aerospace, marine, nuclear, automotive, and petrochemical applications.',
-                            table: { headers: ['No.', 'Type', 'Representative Grades', 'Specifications', 'Applications'],
-                                rows: [
-                                    ['1', 'Fe-based Superalloy',
-                                        'GH1131, GH2132, GH2696, GH2907',
-                                        'Bars: Φ12-Φ850mm; Tubes: OD 4-76mm, WT 0.2-7mm; Flats, squares, discs, rings & free forgings',
-                                        'Aerospace, marine, gas turbines, automotive'],
-                                    ['2', 'Ni-based Superalloy',
-                                        'GH4133B, GH4169, GH4698, GH4720Li, GH4738',
-                                        'Bars: Φ80-Φ500mm; Flats: t≥100mm, w≤1200mm; Discs/Rings: OD Φ400-Φ2200mm; Rolled bars: Φ14-Φ85mm',
-                                        'Aerospace, marine, gas turbines, automotive'],
-                                    ['3', 'Co-based Superalloy', 'GH5188, GH6783',
-                                        'Bars: Φ80-Φ500mm; Flats: t≥100mm, w≤1200mm',
-                                        'Aerospace, marine, gas turbines, automotive'],
-                                    ['4', 'Cast Superalloy', 'K403', 'Per agreement', 'Mold manufacturing'],
-                                ] },
-                        },
-                        { id: 'titanium', name: 'Titanium Alloys', parentName: 'Special Metallurgy', parentId: 'special_metallurgy',
-                            intro: 'Titanium alloys feature low density, high specific strength, and excellent corrosion resistance, widely used in aerospace, marine engineering, chemical, and medical industries.',
-                            table: { headers: ['No.', 'Type', 'Representative Grades', 'Specifications', 'Applications'],
-                                rows: [
-                                    ['1', 'Pure Titanium', 'TA1, TA2, TA3, TA4 (GR1~GR4)',
-                                    'Bars: round 14-130mm', 'Chemical equipment, marine engineering, medical devices'],
-                                    ['2', 'α+β Titanium Alloy',
-                                        'TC4 (GR5/Ti-6Al-4V), TC4ELI, TC6, TC11, TC17, TC18',
-                                        'Bars: round 90-500mm; Flats: t≥100mm, w≤1200mm; Discs/Rings: OD Φ400-Φ2000mm; Rolled bars: round 10-130mm',
-                                        'Aero engines, aircraft structures, marine components'],
-                                    ['3', 'Near-α Titanium Alloy', 'TA15 (BT20), TA18, TA19 (Ti6242)',
-                                        'Bars: round 90-500mm; Flats: t≥100mm, w≤1200mm',
-                                        'Aero engine compressor parts, high-temp structures'],
-                                    ['4', 'β Titanium Alloy', 'TB2, TB6', 'Bars: round 90-500mm; Wire: round 0.5-7mm',
-                                        'Aerospace fasteners, springs, elastic elements'],
-                                ] },
-                        },
-                        { id: 'ultra_high_steel', name: 'Ultra-High Strength Steels', parentName: 'Special Metallurgy',
-                            parentId: 'special_metallurgy',
-                            intro: 'Ultra-high strength steels (UTS >1380MPa) offer high specific strength with good ductility and toughness, used in rocket motor cases, aircraft landing gear, armor plates, and structural components.',
-                            table: { headers: ['No.', 'Type', 'Representative Grades', 'Specifications', 'Applications'],
-                                rows: [
-                                    ['1', 'Low-Alloy UHSS', '300M, 40CrNi2MoA, 4340H, 30CrMnSiNi2A',
-                                        '≤Φ540mm (300M); ≤Φ760mm (40CrNi2MoA)',
-                                        'Aircraft landing gear, rocket cases, structural components'],
-                                    ['2', 'Medium-Alloy UHSS', '30Cr3SiNiMoVA, 32Cr3MoVA, 45CrNiMo1VA',
-                                    '≤Φ400mm', 'Aerospace structures, missile components'],
-                                    ['3', 'High-Alloy UHSS', '16Ni10Co14Cr2MoA, 23Co13Ni11Cr3Mo (AF1311), TM210A',
-                                        '≤Φ400mm', 'Spacecraft structures, satellite brackets'],
-                                ] },
-                        },
-                        { id: 'special_stainless', name: 'Special Stainless Steels', parentName: 'Special Metallurgy',
-                            parentId: 'special_metallurgy',
-                            intro: 'Special stainless steels are used in aerospace, energy plants, marine engineering, ships, and heavy locomotives. Products meet GB, ASTM, EN, DIN, BS, and JIS standards.',
-                            table: { headers: ['No.', 'Type', 'Representative Grades', 'Specifications', 'Applications'],
-                                rows: [
-                                    ['1', 'Austenitic SS', '304, 304L, 316L, 321',
-                                        'Rolled: round 14-160mm; Forged: round 90-260mm; Plate: t 12-130mm',
-                                        'Aerospace components, chemical equipment, fluid equipment'],
-                                    ['2', 'Martensitic SS', '20~40Cr13, 14Cr17Ni2, 9Cr18 (440C)',
-                                        'Rolled: round 14-160mm; Forged: round 90-200mm',
-                                        'Blades, shafts, cutting tools, medical devices, springs'],
-                                    ['3', 'Precipitation Hardening SS',
-                                        '05Cr17Ni4Cu4Nb (17-4PH), 05Cr15Ni5Cu4Nb (15-5PH), 04Cr13Ni8Mo2Al (PH13-8Mo)',
-                                        'Rolled: round 14-160mm; Forged: round 90-200mm',
-                                        'Shafts, springs, high-strength vessels, aerospace structures'],
-                                ] },
-                        },
+                        { id: 'superalloy', name: 'Superalloys', parentName: 'Special Metallurgy', parentId: 'special_metallurgy', intro: 'Superalloys are iron, nickel, or cobalt-based alloys capable of long-term service above 600°C under stress. They offer excellent high-temperature strength, oxidation resistance, and hot corrosion resistance for aerospace, marine, nuclear, automotive, and petrochemical applications.', table: { headers: ['No.', 'Type', 'Representative Grades', 'Specifications', 'Applications'], rows: [['1', 'Fe-based Superalloy', 'GH1131, GH2132, GH2696, GH2907, GH2036', 'Bars: Φ12-Φ850mm; Tubes: OD 4-76mm, WT 0.2-7mm; Flats, squares, discs, rings & free forgings', 'Aerospace, marine, gas turbines, automotive'], ['2', 'Ni-based Superalloy', 'GH4133B, GH4169, GH4698, GH4720Li, GH4738, GH4145, GH4033, GH4037, GH4049', 'Bars: Φ80-Φ500mm; Flats: t≥100mm, w≤1200mm; Discs/Rings: OD Φ400-Φ2200mm; Rolled bars: Φ14-Φ85mm', 'Aerospace, marine, gas turbines, automotive'], ['3', 'Co-based Superalloy', 'GH5188, GH6783, GH605', 'Bars: Φ80-Φ500mm; Flats: t≥100mm, w≤1200mm', 'Aerospace, marine, gas turbines, automotive'], ['4', 'Cast Superalloy', 'K403, K417, K418', 'Per agreement', 'Mold manufacturing, turbine blades'], ['5', 'PM Superalloy', 'FGH4095, FGH4096', 'Bars: Φ80-Φ400mm; Discs: per agreement', 'Aero-engine turbine discs']] } },
+                        { id: 'titanium', name: 'Titanium Alloys', parentName: 'Special Metallurgy', parentId: 'special_metallurgy', intro: 'Titanium alloys feature low density, high specific strength, and excellent corrosion resistance, widely used in aerospace, marine engineering, chemical, and medical industries.', table: { headers: ['No.', 'Type', 'Representative Grades', 'Specifications', 'Applications'], rows: [['1', 'Pure Titanium', 'TA1, TA2, TA3, TA4 (GR1~GR4)', 'Bars: round 14-130mm', 'Chemical equipment, marine engineering, medical devices'], ['2', 'α+β Titanium Alloy', 'TC4 (GR5/Ti-6Al-4V), TC4ELI, TC6, TC11, TC17, TC18, TC21', 'Bars: round 90-500mm; Flats: t≥100mm, w≤1200mm; Discs/Rings: OD Φ400-Φ2000mm; Rolled bars: round 10-130mm', 'Aero engines, aircraft structures, marine components'], ['3', 'Near-α Titanium Alloy', 'TA15 (BT20), TA18, TA19 (Ti6242), TC1, TC2', 'Bars: round 90-500mm; Flats: t≥100mm, w≤1200mm', 'Aero engine compressor parts, high-temp structures'], ['4', 'β Titanium Alloy', 'TB2, TB6, TB8', 'Bars: round 90-500mm; Wire: round 0.5-7mm', 'Aerospace fasteners, springs, elastic elements'], ['5', 'TiAl Intermetallic', 'TiAl-based alloys', 'Bars & forgings: per agreement', 'Aero-engine low-pressure turbine blades']] } },
+                        { id: 'ultra_high_steel', name: 'Ultra-High Strength Steels', parentName: 'Special Metallurgy', parentId: 'special_metallurgy', intro: 'Ultra-high strength steels (UTS >1380MPa) offer high specific strength with good ductility and toughness, used in rocket motor cases, aircraft landing gear, armor plates, and structural components.', table: { headers: ['No.', 'Type', 'Representative Grades', 'Specifications', 'Applications'], rows: [['1', 'Low-Alloy UHSS', '300M, 40CrNi2MoA, 4340H, 30CrMnSiNi2A, D6AC', '≤Φ540mm (300M); ≤Φ760mm (40CrNi2MoA)', 'Aircraft landing gear, rocket cases, structural components'], ['2', 'Medium-Alloy UHSS', '30Cr3SiNiMoVA, 32Cr3MoVA, 45CrNiMo1VA', '≤Φ400mm', 'Aerospace structures, missile components'], ['3', 'High-Alloy UHSS', '16Ni10Co14Cr2MoA, 23Co13Ni11Cr3Mo (AF1311), TM210A, AerMet100', '≤Φ400mm', 'Spacecraft structures, satellite brackets, landing gear'], ['4', 'Maraging Steel', '18Ni(250), 18Ni(300), 18Ni(350)', '≤Φ350mm', 'Spacecraft critical structures, precision molds']] } },
+                        { id: 'special_stainless', name: 'Special Stainless Steels', parentName: 'Special Metallurgy', parentId: 'special_metallurgy', intro: 'Special stainless steels are used in aerospace, energy plants, marine engineering, ships, and heavy locomotives. Products meet GB, ASTM, EN, DIN, BS, and JIS standards.', table: { headers: ['No.', 'Type', 'Representative Grades', 'Specifications', 'Applications'], rows: [['1', 'Austenitic SS', '304, 304L, 316L, 321, 904L, 254SMO', 'Rolled: round 14-160mm; Forged: round 90-260mm; Plate: t 12-130mm', 'Aerospace components, chemical equipment, fluid equipment'], ['2', 'Martensitic SS', '20~40Cr13, 14Cr17Ni2, 9Cr18 (440C), 1Cr17Ni2', 'Rolled: round 14-160mm; Forged: round 90-200mm', 'Blades, shafts, cutting tools, medical devices, springs'], ['3', 'Precipitation Hardening SS', '05Cr17Ni4Cu4Nb (17-4PH), 05Cr15Ni5Cu4Nb (15-5PH), 04Cr13Ni8Mo2Al (PH13-8Mo), 07Cr17Ni7Al (17-7PH)', 'Rolled: round 14-160mm; Forged: round 90-200mm', 'Shafts, springs, high-strength vessels, aerospace structures'], ['4', 'Duplex SS', '2205, 2507, S32750', 'Rolled: round 14-160mm; Plate: t 6-80mm', 'Marine engineering, petrochemical, shipbuilding']] } },
                     ],
                     profile: [
-                        { id: 'structural_steel', name: 'Structural Steels', parentName: 'Profile Products',
-                            parentId: 'profile',
-                            intro: 'With internationally advanced equipment and testing capabilities, we produce automotive steel, gear steel, non-quenched-tempered steel, free-cutting steel, railway steel, marine steel, power plant steel, oilfield steel, spring steel, and bearing steel — over 600 grades.',
-                            table: { headers: ['No.', 'Type', 'Representative Grades', 'Specifications', 'Applications'],
-                                rows: [
-                                    ['1', 'Gear Steel', '16-28MnCr5, SAE8617H-8627H, 18CrNiMo7-6, 20CrMnTiH',
-                                        'Rolled: round 28-130mm; Forged: round 90-700mm',
-                                        'Car transmission gears, truck gears, high-speed rail & wind turbine gears'],
-                                    ['2', 'Crankshaft & Connecting Rod Steel', '34MnV, 49MnVS3, 38MnVS6',
-                                        'Rolled: round 20-110mm; Forged: round 90-700mm',
-                                        'Crankshafts, connecting rods, steering knuckles, front axles'],
-                                    ['3', 'Power Plant Steel', '20Cr1Mo1V1(A), 15CrMoG, 12Cr1MoVG',
-                                        'Rolled: round 14-190mm; Forged: round 90-700mm',
-                                        'Power plant components, fasteners, high-pressure boiler tube blanks'],
-                                    ['4', 'Bearing Steel', 'GCr15, GCr15SiMn, 9Cr18Mo',
-                                        'Rolled: round 14-120mm; Forged: round 100-600mm',
-                                        'Wind turbine bearings, railway bearings, stainless bearings'],
-                                ] },
-                        },
-                        { id: 'stainless_steel', name: 'Stainless Steels', parentName: 'Profile Products',
-                            parentId: 'profile',
-                            intro: 'We produce austenitic, ferritic, duplex, martensitic, and precipitation hardening stainless steel long products including bright bars, cold-drawn bars, hot-rolled bars, forgings, wire rod, and cold-drawn wire.',
-                            table: { headers: ['No.', 'Type', 'Representative Grades', 'Specifications', 'Applications'],
-                                rows: [
-                                    ['1', 'Ferritic', '10Cr17', 'Rolled: round 14-130mm', 'Chemical equipment'],
-                                    ['2', 'Austenitic',
-                                        '06Cr19Ni10, 022Cr19Ni10, 06Cr19Ni10N, 022Cr17Ni12Mo2, 06Cr25Ni20, 06Cr18Ni10Ti',
-                                        'Rolled: round 14-160mm; Forged: round 90-260mm; Plate: t 12-130mm',
-                                        'Machinery, chemical, fluid equipment'],
-                                    ['3', 'Martensitic', '20~40Cr13, 14Cr17Ni2, P91, P92',
-                                        'Rolled: round 14-160mm; Forged: round 90-800mm; Plate: t 12-130mm',
-                                        'Blades, shafts, cutting tools, medical devices, power plant steel'],
-                                    ['4', 'Precipitation Hardening', '05Cr17Ni4Cu4Nb, 07Cr17Ni7Al',
-                                        'Rolled: round 14-160mm; Forged: round 90-200mm',
-                                        'Shafts, springs, high-strength vessels'],
-                                ] },
-                        },
+                        { id: 'structural_steel', name: 'Structural Steels', parentName: 'Profile Products', parentId: 'profile', intro: 'With internationally advanced equipment and testing capabilities, we produce automotive steel, gear steel, non-quenched-tempered steel, free-cutting steel, railway steel, marine steel, power plant steel, oilfield steel, spring steel, and bearing steel — over 600 grades.', table: { headers: ['No.', 'Type', 'Representative Grades', 'Specifications', 'Applications'], rows: [['1', 'Gear Steel', '16-28MnCr5, SAE8617H-8627H, 18CrNiMo7-6, 20CrMnTiH, 20CrMoH', 'Rolled: round 28-130mm; Forged: round 90-700mm', 'Car transmission gears, truck gears, high-speed rail & wind turbine gears'], ['2', 'Crankshaft Steel', '34MnV, 49MnVS3, 38MnVS6, C70S6', 'Rolled: round 20-110mm; Forged: round 90-700mm', 'Crankshafts, connecting rods, steering knuckles, front axles'], ['3', 'Power Plant Steel', '20Cr1Mo1V1(A), 15CrMoG, 12Cr1MoVG, 25Cr2MoVA', 'Rolled: round 14-190mm; Forged: round 90-700mm', 'Power plant components, fasteners, high-pressure boiler tube blanks'], ['4', 'Bearing Steel', 'GCr15, GCr15SiMn, 9Cr18Mo, G20CrNi2Mo', 'Rolled: round 14-120mm; Forged: round 100-600mm', 'Wind turbine bearings, railway bearings, stainless bearings'], ['5', 'Spring Steel', '60Si2Mn, 55CrSi, 50CrVA', 'Rolled: round 10-80mm', 'Automotive suspension springs, railway springs']] } },
+                        { id: 'stainless_steel', name: 'Stainless Steels', parentName: 'Profile Products', parentId: 'profile', intro: 'We produce austenitic, ferritic, duplex, martensitic, and precipitation hardening stainless steel long products including bright bars, cold-drawn bars, hot-rolled bars, forgings, wire rod, and cold-drawn wire.', table: { headers: ['No.', 'Type', 'Representative Grades', 'Specifications', 'Applications'], rows: [['1', 'Ferritic', '10Cr17, 022Cr18Ti', 'Rolled: round 14-130mm', 'Chemical equipment'], ['2', 'Austenitic', '06Cr19Ni10, 022Cr19Ni10, 06Cr19Ni10N, 022Cr17Ni12Mo2, 06Cr25Ni20, 06Cr18Ni10Ti', 'Rolled: round 14-160mm; Forged: round 90-260mm; Plate: t 12-130mm', 'Machinery, chemical, fluid equipment'], ['3', 'Martensitic', '20~40Cr13, 14Cr17Ni2, P91, P92', 'Rolled: round 14-160mm; Forged: round 90-800mm; Plate: t 12-130mm', 'Blades, shafts, cutting tools, medical devices, power plant steel'], ['4', 'Precipitation Hardening', '05Cr17Ni4Cu4Nb, 07Cr17Ni7Al', 'Rolled: round 14-160mm; Forged: round 90-200mm', 'Shafts, springs, high-strength vessels'], ['5', 'Duplex SS', '022Cr22Ni5Mo3N (2205), 022Cr25Ni7Mo4N (2507)', 'Rolled: round 14-160mm; Forged: round 90-400mm', 'Marine engineering, petrochemical']] } },
                     ],
                     nuclear: [
-                        { id: 'nuclear_products', name: 'Nuclear Products', parentName: 'Nuclear Products',
-                            parentId: 'nuclear',
-                            intro: 'Our nuclear-grade material production line features EAF, VIM, fast forging & radial forging machines, and hot extrusion presses. Products include nickel-based alloys, stainless steels, special steels, and welding consumables in plate, tube, bar, wire, and forging forms.',
-                            table: { headers: ['No.', 'Type', 'Representative Grades', 'Specifications', 'Applications'],
-                                rows: [
-                                    ['1', 'Superalloy (Nuclear Grade)', 'NC30Fe, UNS N06690, NS3105, GH4169',
-                                        'Tubes, hot-rolled plates, forged bars, cold-rolled strips, wire, cold-drawn bars',
-                                        'Steam generator U-tubes, reactor internals'],
-                                    ['2', 'Stainless Steel (Nuclear Grade)',
-                                        'Z2CND17-12, Z2CND18-12N, 316L, 0Cr18Ni10Ti, S32101',
-                                        'Hot-rolled plates, cold-rolled coils, bars', 'Support plates, filter components'],
-                                    ['3', 'Carbon & Low-Alloy Steel (Nuclear Grade)',
-                                        'P265GH, P295GH, P355GH, 20MnD5, SA-738Gr.B',
-                                        'Plates: 6-130×1500-4700mm; Forgings',
-                                        'Nuclear island pressure vessels, containment equipment'],
-                                ] },
-                        },
+                        { id: 'nuclear_products', name: 'Nuclear Products', parentName: 'Nuclear Products', parentId: 'nuclear', intro: 'Our nuclear-grade material production line features EAF, VIM, fast forging & radial forging machines, and hot extrusion presses. Products include nickel-based alloys, stainless steels, special steels, and welding consumables in plate, tube, bar, wire, and forging forms.', table: { headers: ['No.', 'Type', 'Representative Grades', 'Specifications', 'Applications'], rows: [['1', 'Superalloy (Nuclear Grade)', 'NC30Fe, UNS N06690, NS3105, GH4169, GH4145', 'Tubes, hot-rolled plates, forged bars, cold-rolled strips, wire, cold-drawn bars', 'Steam generator U-tubes, reactor internals'], ['2', 'Stainless Steel (Nuclear Grade)', 'Z2CND17-12, Z2CND18-12N, 316L, 0Cr18Ni10Ti, S32101, 304LN', 'Hot-rolled plates, cold-rolled coils, bars', 'Support plates, filter components'], ['3', 'Carbon & Low-Alloy Steel (Nuclear Grade)', 'P265GH, P295GH, P355GH, 20MnD5, SA-738Gr.B, 16MnD5', 'Plates: 6-130×1500-4700mm; Forgings', 'Nuclear island pressure vessels, containment equipment'], ['4', 'Ni-based Welding Consumables', 'ERNiCr-3, ERNiCrFe-7, ERNiCrMo-3', 'Wire: Φ0.8-Φ4.0mm', 'Nuclear welded structural components']] } },
                     ],
                     tool_steel: [
-                        { id: 'hot_work', name: 'Hot Work Die Steel', parentName: 'Tool & Die Steel',
-                            parentId: 'tool_steel',
-                            intro: 'Hot work die steels are produced using EAF vacuum degassing/ESR and high-temperature homogenization/super-refinement, delivering excellent chemical composition, thermal fatigue resistance, and long service life.',
-                            table: { headers: ['No.', 'Type', 'Representative Grades', 'Specifications', 'Applications'],
-                                rows: [
-                                    ['1', 'General Hot Work', '5CrMnMo, 5CrNiMo, 5CrNiMoV',
-                                        'Round: Φ14-750mm; Flat: t100-650mm, w100-1300mm',
-                                        'Hot forging dies, hot extrusion dies'],
-                                    ['2', 'Premium Hot Work', 'SWGH13 (4Cr5MoSiV1/H13), SWPH11 (4Cr5MoSiV/H11)',
-                                        'Round: Φ14-800mm; Flat: t100-600mm, w100-1000mm',
-                                        'Al/Mg/Zn extrusion dies, die-casting dies'],
-                                    ['3', 'High-Performance Hot Work', 'SWBPH1 (4Cr5Mo2SiV/DieVar), SWHCM, 3Cr2W8V',
-                                        'Round: Φ14-650mm; Flat: t100-600mm, w100-800mm',
-                                        'High-life die-casting dies, hot extrusion dies'],
-                                ] },
-                        },
-                        { id: 'cold_work', name: 'Cold Work Die Steel', parentName: 'Tool & Die Steel',
-                            parentId: 'tool_steel',
-                            intro: 'Cold work die steels feature uniform matrix microstructure with excellent carbide distribution, high hardness, good toughness, and superior wear resistance.',
-                            table: { headers: ['No.', 'Type', 'Representative Grades', 'Specifications', 'Applications'],
-                                rows: [
-                                    ['1', 'General Cold Work', 'Cr12, Cr12MoV, Cr12Mo1V1 (D2)',
-                                        'Round: Φ14-400mm; Flat: t30-300mm, w100-600mm',
-                                        'Blanking dies, cold extrusion dies, drawing dies'],
-                                    ['2', 'High Wear Resistance', 'SKD11, DC53',
-                                        'Round: Φ14-350mm; Flat: t30-300mm, w100-600mm',
-                                        'High-precision stamping dies, cold rolls, gauges'],
-                                    ['3', 'High Toughness', '7CrSiMnMoV, 9CrWMn',
-                                        'Round: Φ14-300mm; Flat: t30-250mm, w100-500mm',
-                                        'Cold stamping dies, cold extrusion dies, shear blades'],
-                                ] },
-                        },
-                        { id: 'plastic_mold', name: 'Plastic Mold Steel', parentName: 'Tool & Die Steel',
-                            parentId: 'tool_steel',
-                            intro: 'Plastic mold steels offer excellent polishing, machining, and thermal conductivity properties, with quality comparable to imported mold materials.',
-                            table: { headers: ['No.', 'Type', 'Representative Grades', 'Specifications', 'Applications'],
-                                rows: [
-                                    ['1', 'Pre-Hardened', 'P20 (3Cr2Mo), 718 (3Cr2NiMo), SW718H-P',
-                                        'Round: Φ14-600mm; Flat: t30-500mm, w100-1200mm',
-                                        'Appliance housing molds, automotive interior molds'],
-                                    ['2', 'Corrosion-Resistant', 'S136 (4Cr13), 4Cr13H',
-                                        'Round: Φ14-400mm; Flat: t30-400mm, w100-800mm',
-                                        'PVC corrosion molds, medical device molds'],
-                                    ['3', 'Mirror-Finish', 'NAK80, 10Ni3MnCuAl',
-                                        'Round: Φ14-400mm; Flat: t30-400mm, w100-800mm',
-                                        'High-mirror molds, optical lens molds'],
-                                ] },
-                        },
+                        { id: 'hot_work', name: 'Hot Work Die Steel', parentName: 'Tool & Die Steel', parentId: 'tool_steel', intro: 'Hot work die steels are produced using EAF vacuum degassing/ESR and high-temperature homogenization/super-refinement, delivering excellent chemical composition, thermal fatigue resistance, and long service life.', table: { headers: ['No.', 'Type', 'Representative Grades', 'Specifications', 'Applications'], rows: [['1', 'General Hot Work', '5CrMnMo, 5CrNiMo, 5CrNiMoV', 'Round: Φ14-750mm; Flat: t100-650mm, w100-1300mm', 'Hot forging dies, hot extrusion dies'], ['2', 'Premium Hot Work', 'SWGH13 (4Cr5MoSiV1/H13), SWPH11 (4Cr5MoSiV/H11)', 'Round: Φ14-800mm; Flat: t100-600mm, w100-1000mm', 'Al/Mg/Zn extrusion dies, die-casting dies'], ['3', 'High-Performance Hot Work', 'SWBPH1 (4Cr5Mo2SiV/DieVar), SWHCM, 3Cr2W8V, 4Cr5MoWVSi', 'Round: Φ14-650mm; Flat: t100-600mm, w100-800mm', 'High-life die-casting dies, hot extrusion dies']] } },
+                        { id: 'cold_work', name: 'Cold Work Die Steel', parentName: 'Tool & Die Steel', parentId: 'tool_steel', intro: 'Cold work die steels feature uniform matrix microstructure with excellent carbide distribution, high hardness, good toughness, and superior wear resistance.', table: { headers: ['No.', 'Type', 'Representative Grades', 'Specifications', 'Applications'], rows: [['1', 'General Cold Work', 'Cr12, Cr12MoV, Cr12Mo1V1 (D2)', 'Round: Φ14-400mm; Flat: t30-300mm, w100-600mm', 'Blanking dies, cold extrusion dies, drawing dies'], ['2', 'High Wear Resistance', 'SKD11, DC53, Cr8Mo2SiV', 'Round: Φ14-350mm; Flat: t30-300mm, w100-600mm', 'High-precision stamping dies, cold rolls, gauges'], ['3', 'High Toughness', '7CrSiMnMoV, 9CrWMn', 'Round: Φ14-300mm; Flat: t30-250mm, w100-500mm', 'Cold stamping dies, cold extrusion dies, shear blades']] } },
+                        { id: 'plastic_mold', name: 'Plastic Mold Steel', parentName: 'Tool & Die Steel', parentId: 'tool_steel', intro: 'Plastic mold steels offer excellent polishing, machining, and thermal conductivity properties, with quality comparable to imported mold materials.', table: { headers: ['No.', 'Type', 'Representative Grades', 'Specifications', 'Applications'], rows: [['1', 'Pre-Hardened', 'P20 (3Cr2Mo), 718 (3Cr2NiMo), SW718H-P', 'Round: Φ14-600mm; Flat: t30-500mm, w100-1200mm', 'Appliance housing molds, automotive interior molds'], ['2', 'Corrosion-Resistant', 'S136 (4Cr13), 4Cr13H, M333', 'Round: Φ14-400mm; Flat: t30-400mm, w100-800mm', 'PVC corrosion molds, medical device molds'], ['3', 'Mirror-Finish', 'NAK80, 10Ni3MnCuAl', 'Round: Φ14-400mm; Flat: t30-400mm, w100-800mm', 'High-mirror molds, optical lens molds']] } },
                     ],
                     pipe: [
-                        { id: 'pipe_products', name: 'Steel Tube Products', parentName: 'Steel Tube Products',
-                            parentId: 'pipe',
-                            intro: 'The precision tube line, established in 2008, features hot extrusion and special alloy cold-rolled seamless tube lines for superalloys, corrosion-resistant alloys, super-austenitic SS, duplex SS, and special stainless steel tubes.',
-                            table: { headers: ['No.', 'Type', 'Representative Grades', 'Specifications', 'Applications'],
-                                rows: [
-                                    ['1', 'Superalloy Tubes', 'GH3600, GH1140, GH4169, GH3039, GH3030',
-                                        'OD: 1-219mm; WT: 0.1-25mm',
-                                    'Aero engine piping, marine cooler tubes, high-temp furnace tubes'],
-                                    ['2', 'Corrosion-Resistant Alloy Tubes',
-                                        'BG2532, BG2250, N06600, N06625, N06690, N08810, N08825, N10276',
-                                        'OD: 6-508mm; WT: 0.3-35mm',
-                                        'Oil & gas well tubes, nuclear heat exchanger tubes, petrochemical pipelines'],
-                                    ['3', 'Special SS Tubes', '316LMod, 2RE69, 304, 316, 321 (300 series)',
-                                        'OD: 6-610mm; WT: 1-60mm',
-                                    'Nuclear projects, petrochemical, fluid transport'],
-                                ] },
-                        },
+                        { id: 'pipe_products', name: 'Steel Tube Products', parentName: 'Steel Tube Products', parentId: 'pipe', intro: 'The precision tube line, established in 2008, features hot extrusion and special alloy cold-rolled seamless tube lines for superalloys, corrosion-resistant alloys, super-austenitic SS, duplex SS, and special stainless steel tubes.', table: { headers: ['No.', 'Type', 'Representative Grades', 'Specifications', 'Applications'], rows: [['1', 'Superalloy Tubes', 'GH3600, GH1140, GH4169, GH3039, GH3030, GH3044', 'OD: 1-219mm; WT: 0.1-25mm', 'Aero engine piping, marine cooler tubes, high-temp furnace tubes'], ['2', 'Corrosion-Resistant Alloy Tubes', 'BG2532, BG2250, N06600, N06625, N06690, N08810, N08825, N10276, N04400', 'OD: 6-508mm; WT: 0.3-35mm', 'Oil & gas well tubes, nuclear heat exchanger tubes, petrochemical pipelines'], ['3', 'Special SS Tubes', '316LMod, 2RE69, 304, 316, 321 (300 series), 2205, 2507', 'OD: 6-610mm; WT: 1-60mm', 'Nuclear projects, petrochemical, fluid transport'], ['4', 'Precision Instrument Tubes', 'GH4169, 316L, Monel400', 'OD: 1-25mm; WT: 0.1-3mm', 'Precision instruments, sensors'], ['5', 'Monel Alloy Tubes', 'Monel 400 (N04400), Monel K500 (N05500)', 'OD: 1-508mm; WT: 0.1-35mm', 'Marine corrosion-resistant pipelines, chemical heat exchanger/reactor pipelines, oil & gas downhole tubing, marine power systems, salt chemical equipment']] } },
                     ],
                     strip: [
-                        { id: 'strip_products', name: 'Plate & Strip Products', parentName: 'Plate & Strip Products',
-                            parentId: 'strip',
-                            intro: 'The plate & strip line produces hot-rolled and cold-rolled special alloy plates and strips for aerospace, nuclear, petrochemical, marine engineering, and pressure vessel applications.',
-                            table: { headers: ['No.', 'Type', 'Representative Grades', 'Specifications', 'Applications'],
-                                rows: [
-                                    ['1', 'Superalloy Plate/Strip', 'GH4169, GH3030, GH3039, GH3044, GH3128',
-                                        'Thickness: 0.3-20mm; Width: ≤1500mm',
-                                        'Aero engine hot-end components, gas turbine components'],
-                                    ['2', 'Special SS Plate/Strip', '304, 316L, 321, 310S, 904L, S31254, 2205',
-                                        'Thickness: 0.3-130mm; Width: ≤2000mm',
-                                        'Nuclear equipment, petrochemical vessels, marine structures'],
-                                    ['3', 'Structural Steel Plate/Strip', 'Q235B, Q345B, Q345C, S355JR, Q690, A572Gr50',
-                                        'Thickness: 4-250mm; Width: 1500-4700mm',
-                                        'Shipbuilding, bridge construction, engineering machinery'],
-                                ] },
-                        },
+                        { id: 'strip_products', name: 'Plate & Strip Products', parentName: 'Plate & Strip Products', parentId: 'strip', intro: 'The plate & strip line produces hot-rolled and cold-rolled special alloy plates and strips for aerospace, nuclear, petrochemical, marine engineering, and pressure vessel applications.', table: { headers: ['No.', 'Type', 'Representative Grades', 'Specifications', 'Applications'], rows: [['1', 'Superalloy Plate/Strip', 'GH4169, GH3030, GH3039, GH3044, GH3128, GH4145', 'Thickness: 0.3-20mm; Width: ≤1500mm', 'Aero engine hot-end components, gas turbine components'], ['2', 'Special SS Plate/Strip', '304, 316L, 321, 310S, 904L, S31254, 2205, 2507', 'Thickness: 0.3-130mm; Width: ≤2000mm', 'Nuclear equipment, petrochemical vessels, marine structures'], ['3', 'Structural Steel Plate/Strip', 'Q235B, Q345B, Q345C, S355JR, Q690, A572Gr50, Q890', 'Thickness: 4-250mm; Width: 1500-4700mm', 'Shipbuilding, bridge construction, engineering machinery'], ['4', 'Corrosion-Resistant Alloy Plate/Strip', 'N06625, N08825, C276', 'Thickness: 0.5-60mm; Width: ≤2000mm', 'Chemical equipment, FGD, offshore platforms']] } },
                     ],
                 },
-                news: [
-                    { title: 'Strategic Cooperation Agreement Signed with Dongfang Electric', date: '2024-12-15',
-                        summary: 'Qianlixing signed a strategic cooperation framework agreement with Dongfang Electric Group for deep collaboration in nuclear-grade steel.', img: '' },
-                    { title: 'Superalloy Production Line Fully Commissioned', date: '2024-11-08',
-                        summary: 'The newly built superalloy production line is now fully operational, increasing annual capacity to 8,000 tons with internationally advanced product performance.', img: '' },
-                    { title: 'AS9100 Aerospace Quality Management System Certification Achieved', date: '2024-10-22',
-                        summary: 'After rigorous auditing, the company officially obtained AS9100 aerospace quality management system certification, marking a new level in quality management.', img: '' },
-                ],
             },
         };
 
@@ -1509,12 +1648,10 @@
                     el.setAttribute('placeholder', i18n[currentLang][key]);
                 }
             });
-            // 更新语言按钮
             const btn = document.getElementById('langSwitchBtn');
             if (btn) {
                 btn.textContent = t('langLabel');
             }
-            // 更新HTML lang属性
             document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
         }
 
@@ -1522,17 +1659,8 @@
         function toggleLanguage() {
             currentLang = currentLang === 'zh' ? 'en' : 'zh';
             updateI18nElements();
-            // 重新渲染当前页面动态内容
             refreshCurrentPage();
-            try { localStorage.setItem('qlx_lang', currentLang); } catch (e) {}
-        }
-
-        function setLanguage(lang) {
-            if (lang === 'zh' || lang === 'en') {
-                currentLang = lang;
-                updateI18nElements();
-                refreshCurrentPage();
-            }
+            try { localStorage.setItem('qlx_lang', currentLang); } catch (e) { }
         }
 
         // ===================== 刷新当前页面动态内容 =====================
@@ -1540,7 +1668,6 @@
             switch (currentPage) {
                 case 'home':
                     renderHomeProducts();
-                    renderHomeNews();
                     break;
                 case 'products':
                     renderCategoryGrid();
@@ -1549,22 +1676,24 @@
                     if (currentCategoryId) renderCategoryDetail(currentCategoryId);
                     break;
                 case 'product-detail':
-                    if (currentCategoryId && currentSubCategoryId) renderProductDetail(currentCategoryId,
-                        currentSubCategoryId);
+                    if (currentCategoryId && currentSubCategoryId) renderProductDetail(currentCategoryId, currentSubCategoryId);
                     break;
-                case 'equipment':
-                    renderEquipmentContent();
-                    break;
-                case 'news':
-                    renderAllNews();
-                    break;
+                // equipment 页面为静态内容，无需重新渲染，只需更新 i18n 文本即可
                 case 'about':
                 case 'contact':
                     break;
             }
+            setTimeout(observeRevealElements, 100);
         }
 
         // ===================== 页面渲染函数 =====================
+        function getCatColor(catId) {
+            return categoryColors[catId] || '#1a3a5c';
+        }
+        function getCatChar(catId) {
+            if (currentLang === 'zh') return categoryChars[catId] || catId.charAt(0).toUpperCase();
+            return catId.charAt(0).toUpperCase();
+        }
 
         function renderHomeProducts() {
             const grid = document.getElementById('homeProductGrid');
@@ -1572,9 +1701,11 @@
             const data = getProductData();
             grid.innerHTML = data.categories.map(c => {
                 const subs = (data.subCategories[c.id] || []).slice(0, 4);
+                const color = getCatColor(c.id);
+                const ch = getCatChar(c.id);
                 return `
                 <div class="product-card" onclick="navigateToCategory('${c.id}')">
-                    <div class="icon">${c.icon}</div>
+                    <div class="icon-circle" style="background:${color};">${ch}</div>
                     <h4>${c.name}</h4>
                     <div class="sub">${c.desc}</div>
                     <div style="margin-top:8px;">${subs.map(s => `<span class="tag">${s.name}</span>`).join(' ')}</div>
@@ -1582,40 +1713,19 @@
             }).join('');
         }
 
-        function renderHomeNews() {
-            const data = getProductData();
-            const html = data.news.map(n => `
-                <div class="news-item">
-                    <div class="img">📰</div>
-                    <div class="info"><div class="date">${n.date}</div><h4>${n.title}</h4><p style="font-size:13px;color:var(--text-light);">${n.summary}</p></div>
-                </div>`).join('');
-            const homeGrid = document.getElementById('homeNewsGrid');
-            if (homeGrid) homeGrid.innerHTML = html;
-            const allGrid = document.getElementById('allNewsGrid');
-            if (allGrid) allGrid.innerHTML = html;
-            renderAllNews();
-        }
-
-        function renderAllNews() {
-            const data = getProductData();
-            const html = data.news.map(n => `
-                <div class="news-item">
-                    <div class="img">📰</div>
-                    <div class="info"><div class="date">${n.date}</div><h4>${n.title}</h4><p style="font-size:13px;color:var(--text-light);">${n.summary}</p></div>
-                </div>`).join('');
-            const allGrid = document.getElementById('allNewsGrid');
-            if (allGrid) allGrid.innerHTML = html;
-        }
-
         function renderCategoryGrid() {
             const grid = document.getElementById('categoryGrid');
             if (!grid) return;
             const data = getProductData();
-            grid.innerHTML = data.categories.map(c => `
-                <div class="category-card" onclick="navigateToCategory('${c.id}')">
-                    <div class="icon">${c.icon}</div>
+            grid.innerHTML = data.categories.map(c => {
+                const color = getCatColor(c.id);
+                const ch = getCatChar(c.id);
+                return `
+                <div class="category-card" data-cat="${c.id}" onclick="navigateToCategory('${c.id}')">
+                    <div class="icon-circle" style="background:${color};">${ch}</div>
                     <div class="desc"><h4>${c.name}</h4><p>${c.desc}</p><p style="margin-top:4px;font-size:12px;color:var(--accent);">${t('product.viewDetail')}</p></div>
-                </div>`).join('');
+                </div>`;
+            }).join('');
         }
 
         function renderCategoryDetail(categoryId) {
@@ -1627,11 +1737,14 @@
             document.getElementById('breadcrumbCategoryName').textContent = category.name;
             document.getElementById('categoryDetailTitle').textContent = category.name;
             document.getElementById('categoryDetailIntro').textContent = category.intro || '';
-            document.getElementById('subCategoryGrid').innerHTML = subs.map(s => `
+            document.getElementById('subCategoryGrid').innerHTML = subs.map(s => {
+                const color = getCatColor(categoryId);
+                return `
                 <div class="category-card" onclick="navigateToProduct('${categoryId}','${s.id}')">
-                    <div class="icon">📦</div>
-                    <div class="desc"><h4>${s.name}</h4><p>${s.intro ? s.intro.slice(0,60)+'...' : t('product.clickHint')}</p><p style="margin-top:4px;font-size:12px;color:var(--accent);">${t('product.viewOutline')}</p></div>
-                </div>`).join('');
+                    <div class="icon-circle" style="background:${color};">${s.name.charAt(0)}</div>
+                    <div class="desc"><h4>${s.name}</h4><p>${s.intro ? s.intro.slice(0, 60) + '...' : t('product.clickHint')}</p><p style="margin-top:4px;font-size:12px;color:var(--accent);">${t('product.viewOutline')}</p></div>
+                </div>`;
+            }).join('');
         }
 
         function renderProductDetail(parentId, subId) {
@@ -1654,7 +1767,7 @@
             if (sub.table && sub.table.headers && sub.table.rows) {
                 const thead = `<tr>${sub.table.headers.map(h => `<th>${h}</th>`).join('')}</tr>`;
                 const tbody = sub.table.rows.map(row =>
-                    `<tr>${row.map((cell, i) => `<td${i===0?' class="highlight"':''}>${cell}</td>`).join('')}</tr>`
+                    `<tr>${row.map((cell, i) => `<td${i === 0 ? ' class="highlight"' : ''}>${cell}</td>`).join('')}</tr>`
                 ).join('');
                 wrap.innerHTML =
                     `<table class="product-table"><thead>${thead}</thead><tbody>${tbody}</tbody></table>`;
@@ -1662,23 +1775,9 @@
                 wrap.innerHTML =
                     `<p style="text-align:center;color:var(--text-light);padding:40px;">${t('product.noData')}</p>`;
             }
-            // 更新面包屑中的产品中心链接文本
-            const breadcrumbProductLink = document.querySelector('#page-product-detail .breadcrumb a[onclick*="products"]');
+            const breadcrumbProductLink = document.querySelector(
+                '#page-product-detail .breadcrumb a[onclick*="products"]');
             if (breadcrumbProductLink) breadcrumbProductLink.textContent = t('nav.products');
-        }
-
-        function renderEquipmentContent() {
-            const container = document.getElementById('equipmentContent');
-            if (!container) return;
-            container.innerHTML = `
-                <h4 style="color:var(--primary);margin-bottom:8px;">${t('equipment.smelting')}</h4>
-                <p style="margin-bottom:20px;">${t('equipment.smeltingText')}</p>
-                <h4 style="color:var(--primary);margin-bottom:8px;">${t('equipment.forging')}</h4>
-                <p style="margin-bottom:20px;">${t('equipment.forgingText')}</p>
-                <h4 style="color:var(--primary);margin-bottom:8px;">${t('equipment.pipe')}</h4>
-                <p style="margin-bottom:20px;">${t('equipment.pipeText')}</p>
-                <h4 style="color:var(--primary);margin-bottom:8px;">${t('equipment.lab')}</h4>
-                <p>${t('equipment.labText')}</p>`;
         }
 
         // ===================== 导航逻辑 =====================
@@ -1692,9 +1791,9 @@
             if (navLink) navLink.classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
             if (pageId === 'products') renderCategoryGrid();
-            if (pageId === 'news') renderAllNews();
-            if (pageId === 'equipment') renderEquipmentContent();
+            // 注意：equipment 页面现在为静态HTML，不需要调用渲染函数，语言切换已经由 updateI18nElements 处理
             updateI18nElements();
+            setTimeout(observeRevealElements, 100);
         }
 
         function navigateTo(pageId) {
@@ -1737,30 +1836,72 @@
             return false;
         }
 
+        // ===================== 滚动渐显动画（Intersection Observer） =====================
+        function observeRevealElements() {
+            const reveals = document.querySelectorAll('.reveal:not(.visible)');
+            if (!reveals.length) return;
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+            reveals.forEach(el => observer.observe(el));
+        }
+
+        // ===================== 回到顶部按钮 =====================
+        function handleBackToTop() {
+            const btn = document.getElementById('backToTopBtn');
+            if (!btn) return;
+            if (window.scrollY > 400) {
+                btn.classList.add('show');
+            } else {
+                btn.classList.remove('show');
+            }
+        }
+
+        // ===================== 导航栏滚动阴影 =====================
+        function handleHeaderShadow() {
+            const header = document.getElementById('mainHeader');
+            if (!header) return;
+            if (window.scrollY > 10) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }
+
         // ===================== 初始化 =====================
         document.addEventListener('DOMContentLoaded', () => {
-            // 恢复语言偏好
             try {
                 const savedLang = localStorage.getItem('qlx_lang');
                 if (savedLang === 'en' || savedLang === 'zh') currentLang = savedLang;
-            } catch (e) {}
+            } catch (e) { }
 
-            // 主导航点击
             document.querySelectorAll('#mainNav a').forEach(link => {
-                link.addEventListener('click', function(e) {
+                link.addEventListener('click', function (e) {
                     e.preventDefault();
                     const pageId = this.getAttribute('data-page');
                     if (pageId) navigateTo(pageId);
                 });
             });
 
-            // 初始渲染
             updateI18nElements();
             renderHomeProducts();
-            renderHomeNews();
             renderCategoryGrid();
-            renderEquipmentContent();
+            setTimeout(observeRevealElements, 150);
+
+            window.addEventListener('scroll', () => {
+                handleBackToTop();
+                handleHeaderShadow();
+            }, { passive: true });
+
+            handleBackToTop();
+            handleHeaderShadow();
         });
     </script>
 </body>
+
 </html>
